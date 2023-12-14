@@ -13,7 +13,19 @@ This document is to serve as a guide to users for installing and using DeepFrack
 DeepFrack relies on Timeloop for it's cost metrics. Hence it is absolutely necessary for the user to have timeloop installed for running DeepFrack. One can find the the installation procedure and other useful information regarding the dependencies in the [Timeloop documentation](https://timeloop.csail.mit.edu/timeloop/installation).  
 
 # Usage
-## Input and Output
+## Generating costs
+Run the script file for generating all the costs for all tiles.  
 
+## Input and Output
+### Inputs
+Inputs to DeepFrack are gives as paths to the following files/folders  
+1) The folder that contains the yaml files of every layer in the workload.  
+2) The yaml file denoting the architcture specificatios of the accelerator.  
+3) The yaml file describing the mapping constraints.
+4) The json files that store all the tile costs.
+5) Output folder name.
+
+### Outputs
+DeepFrack will output a final log file that will show the optimal tiling, and fusion along with the total energy consumed by fusion over layer by layer scheduling. 
 
 
