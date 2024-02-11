@@ -28,4 +28,28 @@ Inputs to DeepFrack are gives as paths to the following files/folders
 ### Outputs
 DeepFrack will output a final log file that will show the optimal tiling, and fusion along with the total energy consumed by fusion over layer by layer scheduling. 
 
+## Hardware Benchmarcker
+The Benchmarker is the module of DeepFrack that uses timeloop to generate costs (total energy by default) for each step taken by a point in the design sapce. The benchmarker takes the inputs provided to it and returns costs in a folder of .json files. The examples will make it more clear.  
+### Inputs
+The Bencmarker must be provided with the following YAML files.
+1) Timeloop mapper YAML file.
+2) YAML file to describe the architecture of the accelerator.
+3) YAML file that describes the mapping constraints for timeloop.
+4) A folder with seven YAML files correspoding to the variaous data flow that are possible. For example, layer by layer scheduling is a type of dataflow, only I/O cached scheduling is also another type of dataflow. The folowing table sumarizes the various types of dataflow that are possible.
+
+    
+   ![DataFlowTypes](https://github.com/PechimuthuMithil/DeepFrack_temp/assets/119656326/f0b04ded-3d74-47d0-892c-944d82c775be)
+
+Along with these YAML files, the benchmarker requires the user to provide the bit width and the sizes of the second highest (just below the DRAM) memory name and size for Inputs, Weights and Outputs. The user may also choose to provide the output folder for the outputs of the Benchmarker.  
+
+### Outputs  
+The output from the hardware benchmarker is:  
+1) Seven dictionaries stored in seven separate json files. The Dictionary struncture is as follows:  
+```
+{Layer number:{Tile Dimension: Energy Value,...},...}
+```
+2) We aslo store the log files from timeloop in separate folders that can be later used for obtaining a deep analysis of DeepFrack's mapping.
+
+### Time Consumed
+The hardware benchmarking may take some time (~hours) as we are try to qunatize a cost value for every possible step that DeepFrack may take.  
 
