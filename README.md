@@ -1,5 +1,4 @@
-Note: This is a dummy repository. The source code in this repository support CNNs. <-- Container: GeminiBenchMarker2  
-Cheat sheet is yet to be added.
+Note: This is a dummy repository. The source code in this repository support CNNs. <-- Containers: GeminiBenchMarker2, MithilDeepFrackTesting  
 
 # PROJECT DEEPFRACK 
 DeepFrack is a novel framework developed for enhancing energy efficiency and reducing latency in deep learning workloads executed on hardware accelerators. By optimally fusing layers and implementing an asymmetric tiling strategy, DeepFrack addresses the limitations of traditional layer-by-layer scheduling. The DeepFrack project aims to build succinct and simple framework that contributes to the ongoing efforts in designing more efficient hardware accelerators for machine learning workloads.  
@@ -60,7 +59,7 @@ Inputs to DeepFrack are gives as paths to the following files/folders
 3) Output folder name where the overview statistics file along with comparison image will be stored.
 
 ### Outputs
-DeepFrack will output a final log file that will show the optimal tiling, and fusion along with the total energy consumed by fusion over layer by layer scheduling. This file consists of suffecient data to describe the mapping conditions chosen. Moreover one can obtain the exact mapping on the architecture done by timeloop is present in the log files folder populated by the Hardware Benchmarker.  Please note that we are not as of now showing the exact piecing of the tiles, it will be added soon.      
+DeepFrack will output a final log file that will show the optimal tiling, and fusion along with the total energy consumed by fusion over layer by layer scheduling. This file consists of suffecient data to describe the mapping conditions chosen. Moreover one can obtain the exact mapping on the architecture done by timeloop is present in the log files folder populated by the Hardware Benchmarker.  The Statistics file also displays the way the tiles are going to placed and the order in whixh they will be computed.         
 
 ### Time Consumed
 The DeepFrack core may also take time (~hours) proportional to the size of the search space.  
