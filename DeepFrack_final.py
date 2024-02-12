@@ -387,6 +387,53 @@ def load_dictionary_from_file(filename):
         dictionary = json.load(file)
     return dictionary
 
+def fill_rectangle(rectangle, tiles):
+    """
+    Function to fill a rectangle with given square tiles.
+    
+    Args:
+    - rectangle: tuple, dimensions of the rectangle (rows, cols)
+    - tiles: list of integers representing the dimensions of square tiles
+    
+    Returns:
+    - 2D numpy array representing the filled rectangle
+    """
+    rows, cols = rectangle
+    # Create a numpy array to represent the output rectangle
+    output = np.zeros((rows, cols), dtype=int)
+    
+    def fill_recursively(tile_index, start_row, start_col, end_row, end_col):
+        nonlocal output
+        # Base case: if we've filled all the tiles
+        if tile_index == len(tiles):
+            return True
+        
+        tile_size = tiles[tile_index]
+        
+        # Try to place the current tile in different positions
+        for r in range(start_row, end_row - tile_size + 1):
+            for c in range(start_col, end_col - tile_size + 1):
+                # Check if the current position is empty
+                if np.all(output[r:r+tile_size, c:c+tile_size] == 0):
+                    # Place the tile
+                    output[r:r+tile_size, c:c+tile_size] = tile_index + 1
+                    # Try to fill the rest of the rectangle recursively
+                    if fill_recursively(tile_index + 1, start_row, start_col, end_row, c+tile_size):
+                        return True
+                    # Undo the placement if filling the rest of the rectangle fails
+                    output[r:r+tile_size, c:c+tile_size] = 0
+        
+        return False
+    
+    # Start filling the rectangle recursively
+    fill_recursively(0, 0, 0, rows, cols)
+    
+    return output
+
+def write_output_to_file(output, filename):
+    with open(filename, 'a') as file:
+        file.write(np.array2string(output, separator=', '))
+
 st = time.time()
 layers = []
 
@@ -466,37 +513,11 @@ for i in range(0,n):
                     BestPartition[i] = cost[stacks[j]]
                     PartitionTracker[i] = stacks[j]                    
 
-### GENERATE THE STATISTICS FILE ###
-curr = n-1
-d = []
-while (curr >= 0):
-    d.append(PartitionTracker[curr])
-    curr = PartitionTracker[curr][0]-1
 
-a = len(d)
-j = 1
-with open(TPP_statsFile, 'a') as sf: 
-    for stack in range(a-1,-1,-1):
-        sf.write(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ\n")
-        sf.write(f"-> Tiles Used: ")
-        sf.write(np.array2string(np.array(BestTiling[d[stack]])))
-        sf.write("\n")
-        sf.write("Layers, whose weights were cached: ")
-        if (WeightsCached[d[stack]] == 'None'):
-            sf.write("None")
-        else:
-            for wl in range(len(WeightsCached[d[stack]])):
-                if (WeightsCached[d[stack]][wl] == '1'):
-                    sf.write(f"Layer {d[stack][0] + wl} ")
-        sf.write("\n")
-        # print(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ")
-        # print(f"Tiling for Fused Stack{j} is:")
-        j += 1
-        sf.write("\n")
 print(f"Total Cost with Fused Layer Scheduling= {BestPartition[n-1]} uJ")
 
 ### FIND SINGLE LAYER COSTS FOR COMPARISON ###
-
+OutputSizes = []
 SingleLayerCost = 0
 for layn in range(1,n+1):
     with open(layers[layn-1], 'r') as file:
@@ -523,6 +544,7 @@ for layn in range(1,n+1):
                         elif (i[1] == 'Hstride'):
                             Output_Height = data['problem']['instance'][i[0]]
                             Hstride = data['problem']['instance']['Hstride']
+        OutputSizes.append((Output_Height,Output_Width))
     SingleLayerCost += SLC[str(layn)][str(Output_Height)]/1e6
     
 print("--------------------------------------------------------------------")
@@ -530,6 +552,38 @@ print(f"\nSingle Layer Scheduling cost: {SingleLayerCost} uJ\n")
 
 Benefit = ((SingleLayerCost - BestPartition[n-1])/SingleLayerCost)*100
 print(f"Fused Layer scheduling gives an energy reduction of {Benefit}%\n")
+
+### GENERATE THE STATISTICS FILE ###
+curr = n-1
+d = []
+while (curr >= 0):
+    d.append(PartitionTracker[curr])
+    curr = PartitionTracker[curr][0]-1
+
+a = len(d)
+j = 1
+with open(TPP_statsFile, 'a') as sf: 
+    for stack in range(a-1,-1,-1):
+        sf.write(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ\n")
+        sf.write(f"-> Tiles Used: ")
+        sf.write(np.array2string(np.array(BestTiling[d[stack]])))
+        sf.write("\n")
+        tiles = BestTiling[d[stack]]
+        tiles.sort(reverse=True)
+        coloured_tiling = fill_rectangle(OutputSizes[d[stack][1]], tiles)
+        write_output_to_file(coloured_tiling, TPP_statsFile)
+        sf.write("Layers, whose weights were cached: ")
+        if (WeightsCached[d[stack]] == 'None'):
+            sf.write("None")
+        else:
+            for wl in range(len(WeightsCached[d[stack]])):
+                if (WeightsCached[d[stack]][wl] == '1'):
+                    sf.write(f"Layer {d[stack][0] + wl} ")
+        sf.write("\n")
+        # print(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ")
+        # print(f"Tiling for Fused Stack{j} is:")
+        j += 1
+        sf.write("\n")
 
 ### Plotting for comparison ###
 
