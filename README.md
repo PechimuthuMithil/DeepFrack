@@ -15,9 +15,10 @@ The DeepFrack project consits of three modules that together make the final work
 3) #### Statistics Generator: This analyzes the output from the core, to provide the user with each component level statistics like energy/MAC for each component, total computes, total cycles.   
 
 ## Contributors
-1) Tom Glint Issac  
-2) Mithil Pechimuthu  
-3) Naman Dharmani
+1) Tom Glint Issac
+2) Joycee Mekie  
+3) Mithil Pechimuthu  
+4) Naman Dharmani
    
 # Installation
 The files in this repository are suffecient for deploying the tool.  
