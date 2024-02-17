@@ -66,6 +66,9 @@ Inputs to DeepFrack are gives as paths to the following files/folders
 ### Outputs
 DeepFrack will output a final log file that will show the optimal tiling, and fusion along with the total energy consumed by fusion over layer by layer scheduling. This file consists of suffecient data to describe the mapping conditions chosen. Moreover one can obtain the exact mapping on the architecture done by timeloop is present in the log files folder populated by the Hardware Benchmarker.  The Statistics file also displays the way the tiles are going to placed and the order in whixh they will be computed.         
 
+The log gile will look like the following.  
+![Log_file](https://github.com/PechimuthuMithil/DeepFrack_temp/assets/119656326/ec6fb087-a1ed-4c6c-b436-30653513a987)
+
 ### Time Consumed
 The DeepFrack core may also take time (~hours) proportional to the size of the search space.  
 
@@ -87,5 +90,6 @@ The time consumed to perform this is almost neglegible.
 2) Make faster search by better pruning of search space.
 
 ## Future Works
-
+1) Results on inception networks.  
+2) Reference material for hardware designers to develop fused layer scheduling favourable hardware accelerators.  
 
