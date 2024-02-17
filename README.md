@@ -49,6 +49,9 @@ The output from the hardware benchmarker is:
 {Layer number:{Tile Dimension: Energy Value,...},...}
 ```
 2) We aslo store the log files from timeloop in separate folders that can be later used for obtaining a deep analysis of DeepFrack's mapping.
+     
+The directory structure should look something like this.  
+![benchmarker_ouput](https://github.com/PechimuthuMithil/DeepFrack_temp/assets/119656326/c7801055-cf89-4a61-bbd3-930bf63dc239)
 
 ### Time Consumed
 The hardware benchmarking may take some time (~hours) as we are try to qunatize a cost value for every possible step that DeepFrack may take.  
