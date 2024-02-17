@@ -1,5 +1,6 @@
 Note: This is a dummy repository. The source code in this repository support CNNs. <-- Containers: GeminiBenchMarker2, MithilDeepFrackTesting  
 TODO: Make the Hardware Benchmarker, multi threaded. That is, 7 threads for each of the 7 benchmarks.  
+The colouring algorthm that baically tiles a sqaure with tiles from a tile list is ery slow for some reason for medium size squares. Need to look into it to optimize it or parallelize it.  
 
 # PROJECT DEEPFRACK 
 DeepFrack is a novel framework developed for enhancing energy efficiency and reducing latency in deep learning workloads executed on hardware accelerators. By optimally fusing layers and implementing an asymmetric tiling strategy, DeepFrack addresses the limitations of traditional layer-by-layer scheduling. The DeepFrack project aims to build succinct and simple framework that contributes to the ongoing efforts in designing more efficient hardware accelerators for machine learning workloads.  
