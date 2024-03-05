@@ -36,15 +36,21 @@ def modify_yaml_file(input_file, output_file, modified_params):
 
 
 
-def Execute(prob, arch,arch_constraints,map_const,mapper,outputdir):
+def Execute(prob,arch,arch_constraints,components,map_const,mapper,outputdir):
     #command = f'timeloop-mapper {arch} {prob} {map_constraints} {arch_constraints} {mapper} --output-dir {outputdir}'
     #/workspace = outputdir
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)
     if (map_const == ''):
-        command = f'timeloop-mapper {arch} {prob} {arch_constraints} {mapper} -o {outputdir}'
+        if (components == ''):
+            command = f'timeloop-mapper {arch} {prob} {arch_constraints} {mapper} -o {outputdir}'
+        else:
+            command = f'timeloop-mapper {arch} {prob} {arch_constraints} {components}/* {mapper} -o {outputdir}'
     else:
-        command = f'timeloop-mapper {arch} {prob} {arch_constraints} {map_const} {mapper} -o {outputdir}'
+        if (components == ''):
+            command = f'timeloop-mapper {arch} {prob} {arch_constraints} {map_const} {mapper} -o {outputdir}'
+        else:
+            command = f'timeloop-mapper {arch} {prob} {arch_constraints} {components}/* {map_const} {mapper} -o {outputdir}'
     try:
         subprocess.run(command, check=True, shell = True)
         stats_file = f'{outputdir}/timeloop-mapper.stats.txt'
@@ -53,14 +59,16 @@ def Execute(prob, arch,arch_constraints,map_const,mapper,outputdir):
 
         for i, line in enumerate(lines):
             if line.strip() == "Summary Stats":
-                # Read pJ/Compute
-                pJ_compute_line = lines[i+22].strip()
-                pJ_compute = float(pJ_compute_line.split('=')[1].strip())
+                # # Read pJ/Compute
+                # pJ_compute_line = lines[i+22].strip()
+                # pJ_compute = float(pJ_compute_line.split('=')[1].strip())
 
-                # Read Computes
-                computes_line = lines[i+9].strip()
-                computes = int(computes_line.split('=')[1].strip())
-
+                # # Read Computes
+                # computes_line = lines[i+9].strip()
+                # computes = int(computes_line.split('=')[1].strip())
+                energy_line = lines[i+5].strip()
+                print("Energy line in stats file found -->", energy_line)
+                energy = float(energy_line.split(':')[1][:-3].strip())
                 # Read Cycles
                 # cycles_line = lines[i+4].strip()
                 # cycles = int(cycles_line.split(':')[1].strip())
@@ -68,13 +76,13 @@ def Execute(prob, arch,arch_constraints,map_const,mapper,outputdir):
                 # Add to summary_stats dictionary
                 break
         
-        return pJ_compute*computes
+        return energy
 
     except subprocess.CalledProcessError as e:
         #print(f"Timeloop mapper command failed with error: {e}")
         return e
 
-def GetEnergy(layers,tile,LastLayer,ArchConstFile, Arch, map_const, Mapper, OutDir):
+def GetEnergy(layers,tile,LastLayer,ArchConstFile, Arch, components,map_const, Mapper, OutDir):
     # layers: list of all layer files
     # tile: (width,height) of the tile
     # LastLayer: The last layer of the fusion stack. 
@@ -85,7 +93,7 @@ def GetEnergy(layers,tile,LastLayer,ArchConstFile, Arch, map_const, Mapper, OutD
     NewFile = layers[LastLayer][:-5]+'New'+'.yaml'
     modify_yaml_file(layers[LastLayer],NewFile,modify_layer_info)
 
-    TileEnergy = Execute(NewFile,Arch,ArchConstFile,map_const,Mapper,OutDir)
+    TileEnergy = Execute(NewFile,Arch,ArchConstFile,components,map_const,Mapper,OutDir)
     return TileEnergy
 
 
@@ -95,14 +103,16 @@ def GetNum(FileName):
 
 
 layers = []
-folder_path = '/workspace/Gemni_GAN/probGen_copy'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/workspace/DATE_final/MNIST/FP32_Gemmini/mapper/mapper.yaml'
-arch = '/workspace/DATE_final/MNIST/FP32_Gemmini/arch/gemini_like.yaml'
-map_constraints = '/workspace/WrapperTest/ExperimentVGG/simba_like/map_constraints/constraint.yaml'
-arch_constraints_folder = '/workspace/WrapperTest/ExperimentVGG/simba_like/arch_constraints/' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc...
-OutDir_partial = '/workspace/Gemni_GAN/LogFiles'
+folder_path = '/TestingAlexNet/AlexNet'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/TestingAlexNet/simba_like/mapper/mapper.yaml'
+arch = '/TestingAlexNet/simba_like/arch/simba_like.yaml'
+components = '/TestingAlexNet/simba_like/arch/components' # folder containg the components
+map_constraints = '/TestingAlexNet/simba_like/constraints/simba_like_map_constraints.yaml'
+arch_constraints_folder = '/TestingAlexNet/simba_like/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/TestingAlexNet/BenchMarkLogFiles'
 Padding_Width = 0
 Padding_Height = 0
+
 Dataflow_types = ['SLC','LBLC','ELBLC','WCC','EWCC','OutWCC','Start']
 
 ###     SORT THE FILES IN THE FOLDER    ###
@@ -111,6 +121,7 @@ for file_name in os.listdir(folder_path):
         file_path = os.path.join(folder_path, file_name)
         layers.append(file_path)
 layers.sort(key = GetNum, reverse = True)
+
 for df in Dataflow_types:
     ###     GET THE DATA    ###
     LayerData = {}
@@ -155,20 +166,20 @@ for df in Dataflow_types:
 
             # NOW CHECKING SIZES #
             # THIS IS NOT NECESSARY HERE AS WE CHECK IT IN THE WRAPPER TOO #
-            ans = GetEnergy(layers,(tile_width,tile_height),curr_iter,arch_constraints_folder+'/'+df+'.yaml',arch,map_constraints,mapper,OutDir)
+            ans = GetEnergy(layers,(tile_width,tile_height),curr_iter,arch_constraints_folder+'/'+df+'.yaml',arch,components,map_constraints,mapper,OutDir)
             TileData[tile_width] = ans
         LayerData[ln] = TileData
         curr_iter += 1
 
         # SAVE LAYER WISE #
         save_dictionary_to_file(LayerData[ln],OutDir_partial+'/'+df+f'/Layer{ln}.json')
-
+        print(f"SAVED LAYER WISE BENCHMARKED DATA FOR {df}")
         # DELETE TEMP FILES #
-        os.remove(layers[ln][:-5]+'New'+'.yaml')
+        os.remove(layer[:-5]+'New'+'.yaml')
 
     # SAVE FULL MODEL LEVEL #
     save_dictionary_to_file(LayerData,OutDir_partial+'/'+df+'.json')
-
+    print(f"SAVED BENCHMARKED DATA AT --> {OutDir_partial+'/'+df+'.json'}")
     
 
 
