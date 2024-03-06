@@ -49,7 +49,6 @@ def write_to_csv(file_path, data_list):
     try:
         with open(file_path, 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            # Write header if needed
             # writer.writerow(['Column1', 'Column2', 'Column3'])
             for data_row in data_list:
                 writer.writerow(data_row)
@@ -59,9 +58,9 @@ def write_to_csv(file_path, data_list):
 
 layers = []
 
-layer_folder_path = '/workspace/WrapperTest/ExperimentVGG/VGG02'  # Please note that the layers should be named 01,02,03...
-file_path = "/workspace/dataDATE.csv" # Path to csv file
-LogFile_filder_path = '' # Path to the folder that contains the Log Files created during the Bench Marking process
+layer_folder_path = '/TestingAlexNet/AlexNet'  # Please note that the layers should be named 01,02,03...
+Plotdata_file_path = "/TestingAlexNet/PlottingData.csv" # Path to csv file
+BenchMrkrLog_folder = '/TestingAlexNet/BenchMarkLogFiles' # Path to the folder that contains the Log Files created during the Bench Marking process
 
 for file_name in os.listdir(layer_folder_path):
     if file_name.endswith('.yaml'):
@@ -69,14 +68,14 @@ for file_name in os.listdir(layer_folder_path):
         layers.append(file_path)
 layers.sort(key = GetNum)
 
-stacks = [(0,7),(8,9),(10,10),(11,12)] # Get these vales from the Stats File from the DeepFrack Wrapper
-tiles = [7,4,14,4] # Get these vales from the Stats File from the DeepFrack Wrapper
-WCPs = ['11111110','11','0','11'] # Get these vales from the Stats File from the DeepFrack Wrapper
+stacks = [(0,3)] # Get these vales from the Stats File from the DeepFrack Wrapper
+tiles = [13] # Get these vales from the Stats File from the DeepFrack Wrapper
+WCPs = ['0000'] # Get these vales from the Stats File from the DeepFrack Wrapper
 
 datata = []
 
 ### TO GET WHAT IS THE TILES AVAILABLE ###
-LBLCFile = '/workspace/WrapperTest/ExperimentVGG/LBLCUpdated.json'
+LBLCFile = '/TestingAlexNet/BenchMarkLogFiles/LBLC.json'
 LBLC = load_dictionary_from_file(LBLCFile)
 
 for k in range(len(stacks)):
@@ -100,7 +99,7 @@ for k in range(len(stacks)):
     count = stack[1]-stack[0]
     if (stack[0] == stack[1]):
         layer = stack[1]
-        stats_file = LogFile_filder_path +f'/LogFiles/SLC/Layer{stacks[0]+1}/tile_size'
+        stats_file = BenchMrkrLog_folder +f'/SLC/Layer{stack[0]+1}/Tile{tile_size}'
         data = Read(stats_file)
         Latency += data[0]
         pJCompute_LMAC += data[1]*data[8]
@@ -118,24 +117,24 @@ for k in range(len(stacks)):
                 tile_size -= 1
             if (layer == stack[1]):
                 if (WCP[count] == '0'):
-                    stats_file = LogFile_filder_path +f'/LogFiles/Start/Layer{stacks[0]+1}/tile_size'
+                    stats_file = BenchMrkrLog_folder +f'/Start/Layer{stack[0]+1}/Tile{tile_size}'
                     data = Read(stats_file)
                 else:
-                    stats_file = LogFile_filder_path +f'/LogFiles/OutWCC/Layer{stacks[0]+1}/tile_size'
+                    stats_file = BenchMrkrLog_folder +f'/OutWCC/Layer{stack[0]+1}/Tile{tile_size}'
                     data = Read(stats_file)   
             elif (layer == stack[0]):
                 if (WCP[count] == '0'):
-                    stats_file = LogFile_filder_path +f'/LogFiles/ELBLC/Layer{stacks[0]+1}/tile_size'
+                    stats_file = BenchMrkrLog_folder +f'/ELBLC/Layer{stack[0]+1}/Tile{tile_size}'
                     data = Read(stats_file)
                 else:
-                    stats_file = LogFile_filder_path +f'/LogFiles/EWCC/Layer{stacks[0]+1}/tile_size'
+                    stats_file = BenchMrkrLog_folder +f'/EWCC/Layer{stack[0]+1}/Tile{tile_size}'
                     data = Read(stats_file)
             else:
                 if (WCP[count] == '0'):
-                    stats_file = LogFile_filder_path +f'/LogFiles/LBLC/Layer{stacks[0]+1}/tile_size'
+                    stats_file = BenchMrkrLog_folder +f'/LBLC/Layer{stack[0]+1}/Tile{tile_size}'
                     data = Read(stats_file)
                 else:
-                    stats_file = LogFile_filder_path +f'/LogFiles/WCC/Layer{stacks[0]+1}/tile_size'
+                    stats_file = BenchMrkrLog_folder +f'/WCC/Layer{stack[0]+1}/Tile{tile_size}'
                     data = Read(stats_file) 
             count -= 1
             Latency += data[0]
@@ -174,8 +173,8 @@ for k in range(len(stacks)):
             Padding_Width = 0
             tile_size = ((tile_size - 1) * Wstride) - (2 * Padding_Width) + (Wdilation * (Kernel_Width - 1)) + 1
 
-    datata.append([pJCompute_LMAC/TotalComputes, pJCompute_psum_spad/TotalComputes,pJCompute_weight_spad/TotalComputes, pJCompute_ifmap_spad/TotalComputes,pJCompute_DummyBuffer/TotalComputes,pJCompute_shared_glb/TotalComputes,pJCompute_DRAM/TotalComputes,Latency,TotalComputes])
-
+    datata.append([stack,pJCompute_LMAC/TotalComputes, pJCompute_psum_spad/TotalComputes,pJCompute_weight_spad/TotalComputes, pJCompute_ifmap_spad/TotalComputes,pJCompute_DummyBuffer/TotalComputes,pJCompute_shared_glb/TotalComputes,pJCompute_DRAM/TotalComputes,Latency,TotalComputes])
+    print("Stack:", stack)
     print('Latency:',Latency)
     print('pJmac:',pJCompute_LMAC/TotalComputes)
     print('pJCompute_psum_spad:',pJCompute_psum_spad/TotalComputes)
@@ -187,4 +186,4 @@ for k in range(len(stacks)):
     print('TotalComputes:',TotalComputes)    
     
 data_to_write = datata
-write_to_csv(file_path, data_to_write)
+write_to_csv(Plotdata_file_path, data_to_write)

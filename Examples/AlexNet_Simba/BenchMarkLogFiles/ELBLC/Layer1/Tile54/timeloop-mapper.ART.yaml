@@ -1,0 +1,17 @@
+ART:
+  version: 0.3
+  tables:
+  - name: System.DRAM
+    area: 1
+  - name: System.ws.PE[0..15].PEInputBuffer
+    area: 111946.0
+  - name: System.ws.PE[0..15].PEWeightBuffer[0..7]
+    area: 58415.4
+  - name: System.ws.PE[0..15].PEAccuBuffer[0..7]
+    area: 4799.93
+  - name: System.ws.PE[0..15].PEWeightRegs[0..63]
+    area: 180.0
+  - name: System.ws.PE[0..15].LMAC[0..63]
+    area: 1239.5
+  - name: System.ws.GlobalBuffer
+    area: 821375.0

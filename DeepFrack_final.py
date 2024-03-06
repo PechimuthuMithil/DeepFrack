@@ -154,7 +154,7 @@ def StackCostGenerator(
                 inputs_size = 0
                 weights_size = 0
                 const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['Start']
-                if (const >= arch_sizes):
+                if np.all(const >= arch_sizes):
                     CurrAnswer = float('inf')
                     break
                 else:
@@ -179,7 +179,7 @@ def StackCostGenerator(
                     inputs_size = (LargestTileSizes[start+i-1]**2)*Ms[start+i-1]
                     weights_size = 0
                     const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['LBLC']
-                    if (const >= arch_sizes):
+                    if np.all(const >= arch_sizes):
                         CurrAnswer = float('inf')
                         break
                     else:
@@ -202,7 +202,7 @@ def StackCostGenerator(
                 inputs_size = (LargestTileSizes[end-1]**2)*Ms[end-1]
                 weights_size = 0
                 const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['ELBLC']
-                if (const >= arch_sizes):
+                if np.all(const >= arch_sizes):
                     CurrAnswer = float('inf')
                     break
                 else:
@@ -270,14 +270,14 @@ def StackCostGenerator(
                     weights_size = 0 
                     if (ChosenCached[0] == '1'):
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['OutWCC']
-                        if (const >= arch_sizes):
+                        if np.all(const >= arch_sizes):
                             CurrAnswer += float('inf')
                             break
                         else:
                             CurrAnswer += OutWCC[str(start+1)][str(TileSizes[start])]
                     else:
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['Start']
-                        if (const >= arch_sizes):
+                        if np.all(const >= arch_sizes):
                             CurrAnswer += float('inf')
                             break
                         else:
@@ -303,14 +303,14 @@ def StackCostGenerator(
                         weights_size = 0
                         if (ChosenCached[i] == '1'):
                             const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['WCC']
-                            if (const >= arch_sizes):
+                            if np.all(const >= arch_sizes):
                                 CurrAnswer += float('inf')
                                 break
                             else:
                                 CurrAnswer += FullyWCC[str(start+i+1)][str(TileSizes[start+i])]
                         else:
                             const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['LBLC']
-                            if (const >= arch_sizes):
+                            if np.all(const >= arch_sizes):
                                 CurrAnswer += float('inf')
                                 break
                             else:
@@ -333,14 +333,14 @@ def StackCostGenerator(
                         inputs_size = (TileSizes[start+i-1]**2)*Ms[start+i-1]
                         weights_size = 0
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['EWCC']
-                        if (const >= arch_sizes):
+                        if np.all(const >= arch_sizes):
                             CurrAnswer += float('inf')
                             break
                         else:
                             CurrAnswer += EWCC[str(end+1)][str(TileSizes[end])]
                     else:
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['ELBLC']
-                        if (const >= arch_sizes):
+                        if np.all(const >= arch_sizes):
                             CurrAnswer += float('inf')
                             break
                         else:
@@ -437,17 +437,39 @@ def write_output_to_file(output, filename):
 st = time.time()
 layers = []
 
-folder_path = '/workspace/WrapperTest/ExperimentVGG/VGG02'  # Folder containing all the layers
-SLCFile = '/workspace/AlexNet_Simba/Res_SLC/SLC.json'
-LBLCFile = '/workspace/WrapperTest/ExperimentVGG/LBLCUpdated.json'
-FullyWCCFile = '/workspace/WrapperTest/ExperimentVGG/ResultsWCC/WCCUpdated.json'
-StartFile = '/workspace/WrapperTest/ExperimentVGG/ResultsStartWCC/ResSWCCUpdated.json'
-EndFileWCC = '/workspace/WrapperTest/ExperimentVGG/ResultsEndWCC/EndWCCUpdated.json'
-EndFileLBLC = '/workspace/WrapperTest/ExperimentVGG/ELBLCUpdated.json'
-OutputImgFile = '/FinalDeepFrackResults/VGG_Simba_Comparison.jpg'
-TPP_statsFile = '/FinalDeepFrackResults/VGG_Simba_2_stats.txt'
-OutWCCFile = '/workspace/WrapperTest/ExperimentVGG/Res_OutWCC/OutWCC.json'
-CheatSheet = '/workspace/CheatSheet.json'
+folder_path = '/TestingAlexNet/AlexNet'  # Folder containing all the layers
+BenchMrkrLog_folder = '/TestingAlexNet/BenchMarkLogFiles'
+SLCFile = ''
+LBLCFile = ''
+FullyWCCFile = ''
+StartFile = ''
+EndFileWCC = ''
+EndFileLBLC = ''
+OutWCCFile = ''
+CheatSheet = '/TestingDF/DeepFrack_temp/CheatSheet.json'
+OutputImgFile = '/TestingAlexNet/Plots/Comparison.jpg'
+LogFile = '/TestingAlexNet/DeepFrack_logfile.txt'
+
+for file_name in os.listdir(BenchMrkrLog_folder):
+    if file_name.endswith('.json'):
+        name = file_name[:-5]
+        path = os.path.join(BenchMrkrLog_folder, file_name)
+        if name == 'ELBLC':
+            EndFileLBLC = path
+        elif name == 'EWCC':
+            EndFileWCC = path
+        elif name == 'LBLC':
+            LBLCFile = path
+        elif name == 'OutWCC':
+            OutWCCFile = path
+        elif name == 'SLC':
+            SLCFile = path
+        elif name == 'Start':
+            StartFile = path
+        elif name == 'WCC':
+            FullyWCCFile = path
+        else:
+            print("Invalid name:", name)
 
 ### LOAD THE DICTIONARIES ###
 SLC = load_dictionary_from_file(SLCFile)
@@ -474,7 +496,7 @@ for file_name in os.listdir(folder_path):
 layers.sort(key = GetNum)
 n = len(layers)
 
-### Now the layers are in increasin order of their layer number. ###
+### Now the layers are in increasing order of their layer number. ###
 stacks = []
 cost = {}
 BestTiling = {}
@@ -487,7 +509,7 @@ for end in range(n):
         stacks.append((start,end))  # start and end are the indexes of the layers in the list named layers.
         print((start,end),end = " ")
         temp = StackCostGenerator(WeightLevel_name,WeightLevel_size, InputLevel_name, InputLevel_size, OutputLevel_name, OutputLevel_size, layers, (start,end), SLC, Start, OutWCC, LBLC, FullyWCC,ELBLC,EWCC,CheatSheet)
-        cost[(start,end)],BestTiling[(start,end)],WeightsCached[(start,end)] = temp[0]/1e6, temp[1], temp[2]
+        cost[(start,end)],BestTiling[(start,end)],WeightsCached[(start,end)] = temp[0], temp[1], temp[2]
         print(":",cost[(start,end)])
 
 m = len(stacks)
@@ -522,7 +544,6 @@ SingleLayerCost = 0
 for layn in range(1,n+1):
     with open(layers[layn-1], 'r') as file:
         data = yaml.safe_load(file)
-
     # Output Dimensions:
     for data_space in data['problem']['shape']['data-spaces']:
         '''
@@ -544,8 +565,8 @@ for layn in range(1,n+1):
                         elif (i[1] == 'Hstride'):
                             Output_Height = data['problem']['instance'][i[0]]
                             Hstride = data['problem']['instance']['Hstride']
-        OutputSizes.append((Output_Height,Output_Width))
-    SingleLayerCost += SLC[str(layn)][str(Output_Height)]/1e6
+    OutputSizes.append((Output_Height,Output_Width))
+    SingleLayerCost += SLC[str(layn)][str(Output_Height)]
     
 print("--------------------------------------------------------------------")
 print(f"\nSingle Layer Scheduling cost: {SingleLayerCost} uJ\n")
@@ -562,16 +583,16 @@ while (curr >= 0):
 
 a = len(d)
 j = 1
-with open(TPP_statsFile, 'a') as sf: 
+with open(LogFile, 'a') as sf: 
     for stack in range(a-1,-1,-1):
         sf.write(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ\n")
         sf.write(f"-> Tiles Used: ")
         sf.write(np.array2string(np.array(BestTiling[d[stack]])))
         sf.write("\n")
-        tiles = BestTiling[d[stack]]
-        tiles.sort(reverse=True)
-        coloured_tiling = fill_rectangle(OutputSizes[d[stack][1]], tiles)
-        write_output_to_file(coloured_tiling, TPP_statsFile)
+        # tiles = BestTiling[d[stack]]
+        # tiles.sort(reverse=True)
+        # coloured_tiling = fill_rectangle(OutputSizes[d[stack][1]], tiles)
+        # write_output_to_file(coloured_tiling, LogFile)
         sf.write("Layers, whose weights were cached: ")
         if (WeightsCached[d[stack]] == 'None'):
             sf.write("None")
@@ -598,11 +619,11 @@ et = time.time()
 
 ### FINAL LINES OF STATS FILE ###
 
-with open(TPP_statsFile, 'a') as sf2:
+with open(LogFile, 'a') as sf2:
     sf2.write(f"Total Cost with Fused Layer Scheduling= {BestPartition[n-1]} uJ\n")
     sf2.write(f"\nSingle Layer Scheduling cost: {SingleLayerCost} uJ\n")
     sf2.write(f"Fused Layer scheduling gives an energy reduction of {Benefit}%\n")
     sf2.write(f"Total Elapsed Time: {time.strftime('%H:%M:%S', time.gmtime(et-st))}")
 
-print(f"Stored the statistics at {TPP_statsFile}")
+print(f"Stored the statistics at {LogFile}")
 print("Total Elapsed Time:",time.strftime("%H:%M:%S", time.gmtime(et-st)))

@@ -1,0 +1,126 @@
+ERT_summary:
+  version: 0.3
+  table_summary:
+  - name: System.DRAM
+    actions:
+    - name: read
+      energy: 1
+    - name: write
+      energy: 1
+    - name: idle
+      energy: 0
+    primitive_estimation(s):
+    - name: System.DRAM
+      estimator: dummy_table
+  - name: System.ws.PE[0..15].PEInputBuffer
+    actions:
+    - name: write
+      average_energy: 11.95343
+      max_energy: 23.8574
+      min_energy: 0.04945
+    - name: read
+      average_energy: 9.70773
+      max_energy: 19.366
+      min_energy: 0.04945
+    - name: idle
+      energy: 0.01255
+    primitive_estimation(s):
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].PEWeightBuffer[0..7]
+    actions:
+    - name: write
+      average_energy: 9.0517
+      max_energy: 18.0543
+      min_energy: 0.04909
+    - name: read
+      average_energy: 5.12795
+      max_energy: 10.2068
+      min_energy: 0.04909
+    - name: idle
+      energy: 0.01219
+    primitive_estimation(s):
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].PEAccuBuffer[0..7]
+    actions:
+    - name: write
+      average_energy: 1.4649
+      max_energy: 2.88099
+      min_energy: 0.04881
+    - name: read
+      average_energy: 0.88451
+      max_energy: 1.72021
+      min_energy: 0.04881
+    - name: idle
+      energy: 0.01191
+    primitive_estimation(s):
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].PEWeightRegs[0..63]
+    actions:
+    - name: write
+      average_energy: 0.19872
+      max_energy: 0.3368
+      min_energy: 0.06064
+    - name: read
+      average_energy: 0.19872
+      max_energy: 0.3368
+      min_energy: 0.06064
+    - name: idle
+      energy: 0.02374
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].LMAC[0..63]
+    actions:
+    - name: compute
+      energy: 2.20035
+    primitive_estimation(s):
+    - name: intmac
+      estimator: Aladdin_table
+  - name: System.ws.GlobalBuffer
+    actions:
+    - name: write
+      average_energy: 129.47216
+      max_energy: 258.8848
+      min_energy: 0.05952
+    - name: read
+      average_energy: 65.95516
+      max_energy: 131.8508
+      min_energy: 0.05952
+    - name: idle
+      energy: 0.02262
+    primitive_estimation(s):
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table

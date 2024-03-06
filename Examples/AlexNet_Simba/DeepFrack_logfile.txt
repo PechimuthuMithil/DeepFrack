@@ -1,0 +1,9 @@
+Fuse Stack 1: (0, 3) with a cost of 1633.25 uJ
+-> Tiles Used: [13]
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 1633.25 uJ
+
+Single Layer Scheduling cost: 2908.83 uJ
+Fused Layer scheduling gives an energy reduction of 43.85199547584424%
+Total Elapsed Time: 00:00:01
