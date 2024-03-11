@@ -103,15 +103,32 @@ def GetNum(FileName):
 
 
 layers = []
-folder_path = '/TestingAlexNet/AlexNet'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/TestingAlexNet/simba_like/mapper/mapper.yaml'
-arch = '/TestingAlexNet/simba_like/arch/simba_like.yaml'
-components = '/TestingAlexNet/simba_like/arch/components' # folder containg the components
-map_constraints = '/TestingAlexNet/simba_like/constraints/simba_like_map_constraints.yaml'
-arch_constraints_folder = '/TestingAlexNet/simba_like/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
-OutDir_partial = '/TestingAlexNet/BenchMarkLogFiles'
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+folder_path = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/VGG02_2'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/mapper/mapper.yaml'
+arch = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/arch/simba_like.yaml'
+components = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/arch/components' # folder containg the components
+map_constraints = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/constraints/simba_like_map_constraints.yaml'
+arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles'
 Padding_Width = 0
 Padding_Height = 0
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+logo = '''
+ _____                      _______               _     
+(____ \                    (_______)             | |    
+ _   \ \ ____ ____ ____     _____ ____ ____  ____| |  _ 
+| |   | / _  ) _  )  _ \   |  ___) ___) _  |/ ___) | / )
+| |__/ ( (/ ( (/ /| | | |  | |  | |  ( ( | ( (___| |< ( 
+|_____/ \____)____) ||_/   |_|  |_|   \_||_|\____)_| \_)
+                  |_|                                   
+
+'''
+print(logo)
 
 Dataflow_types = ['SLC','LBLC','ELBLC','WCC','EWCC','OutWCC','Start']
 
@@ -158,7 +175,11 @@ for df in Dataflow_types:
         DataFlow = {}
         TileArray = {}
         TileData = {}
-        for tile_width in range(1,Output_Width+1):
+        start_width = 1
+        if(df == "SLC"): # FOR SLC WE DON'T NEED TO SEE ALL THE TILES.
+            start_width = Output_Width
+
+        for tile_width in range(start_width,Output_Width+1):
             tile_height = tile_width # Asssuming sqaure tiles #
             OutDir = OutDir_partial+'/'+df+f'/Layer{ln}/Tile{tile_height}'
             Input_Width = ((tile_width - 1) * Wstride) - (2 * Padding_Width) + (Wdilation * (Kernel_Width - 1)) + 1

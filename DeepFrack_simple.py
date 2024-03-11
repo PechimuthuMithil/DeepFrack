@@ -329,8 +329,8 @@ def StackCostGenerator(
                     ### FOR LAST LAYER ###
                                 
                     if (ChosenCached[n-1] == '1'):
-                        outputs_size = (TileSizes[start+i]**2)*Ms[start+i] 
-                        inputs_size = (TileSizes[start+i-1]**2)*Ms[start+i-1]
+                        outputs_size = 0 
+                        inputs_size = (TileSizes[end-1]**2)*Ms[end-1]
                         weights_size = 0
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['EWCC']
                         if np.all(const >= arch_sizes):
@@ -364,7 +364,7 @@ def StackCostGenerator(
                 BestAnswer = CurrAnswer
                 BestCaching = ChosenCached
                 BestListofTiles = ListOfTiles
-
+                
         if (BestAnswer < BestTilingCost):
             BestTilingCost = BestAnswer
             BestTiling = BestListofTiles
@@ -437,8 +437,26 @@ def write_output_to_file(output, filename):
 st = time.time()
 layers = []
 
-folder_path = '/TestingAlexNet/AlexNet'  # Folder containing all the layers
-BenchMrkrLog_folder = '/TestingAlexNet/BenchMarkLogFiles'
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+folder_path = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/VGG02'  # Folder containing all the layers
+BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles'
+CheatSheet = '/TestingDF/DeepFrack_temp/CheatSheet.json'
+OutputImgFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/Plots/Comparison.jpg'
+LogFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/DeepFrack_logfile.txt'
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+logo = '''
+ _____                      _______               _     
+(____ \                    (_______)             | |    
+ _   \ \ ____ ____ ____     _____ ____ ____  ____| |  _ 
+| |   | / _  ) _  )  _ \   |  ___) ___) _  |/ ___) | / )
+| |__/ ( (/ ( (/ /| | | |  | |  | |  ( ( | ( (___| |< ( 
+|_____/ \____)____) ||_/   |_|  |_|   \_||_|\____)_| \_)
+                  |_|                                   
+
+'''
+print(logo)
+
 SLCFile = ''
 LBLCFile = ''
 FullyWCCFile = ''
@@ -446,9 +464,7 @@ StartFile = ''
 EndFileWCC = ''
 EndFileLBLC = ''
 OutWCCFile = ''
-CheatSheet = '/TestingDF/DeepFrack_temp/CheatSheet.json'
-OutputImgFile = '/TestingAlexNet/Plots/Comparison.jpg'
-LogFile = '/TestingAlexNet/DeepFrack_logfile.txt'
+
 
 for file_name in os.listdir(BenchMrkrLog_folder):
     if file_name.endswith('.json'):
@@ -507,10 +523,10 @@ WeightsCached = {}
 for end in range(n):
     for start in range(end+1):
         stacks.append((start,end))  # start and end are the indexes of the layers in the list named layers.
-        print((start,end),end = " ")
+        print("Stack", (start,end),end = " ")
         temp = StackCostGenerator(WeightLevel_name,WeightLevel_size, InputLevel_name, InputLevel_size, OutputLevel_name, OutputLevel_size, layers, (start,end), SLC, Start, OutWCC, LBLC, FullyWCC,ELBLC,EWCC,CheatSheet)
         cost[(start,end)],BestTiling[(start,end)],WeightsCached[(start,end)] = temp[0], temp[1], temp[2]
-        print(":",cost[(start,end)])
+        print(":",cost[(start,end)], "uJ")
 
 m = len(stacks)
 BestPartition = np.zeros(n)
@@ -583,7 +599,24 @@ while (curr >= 0):
 
 a = len(d)
 j = 1
+distinct_tiles = []
+WCPS = []
+for stack in d:
+    distinct_tiles.append(np.unique(BestTiling[stack])[0])
+
+for stack in d:
+    if (WeightsCached[stack] == 'None'):
+        WCPS.append('0'*(stack[1]-stack[0]+1))
+    else:
+        WCPS.append(WeightsCached[stack])
+
 with open(LogFile, 'a') as sf: 
+    sf.write(np.array2string(np.array(d)))
+    sf.write("\n")
+    sf.write(np.array2string(np.array(distinct_tiles)))
+    sf.write("\n")
+    sf.write(np.array2string(np.array(WCPS)))
+    sf.write("\n")
     for stack in range(a-1,-1,-1):
         sf.write(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ\n")
         sf.write(f"-> Tiles Used: ")

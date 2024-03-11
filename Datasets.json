@@ -1,0 +1,23 @@
+{
+    "Workloads":
+    {
+        "VGG02" : "./Examples/VGG_Simba/VGG02",
+        "Alexnet" : "./Examples/AlexNet_Simba/AlexNet",
+        "Resnet-20" : "",
+        "Resnet-50" : "",
+        "Lenet" : "",
+        "lama-2" : ""
+    },
+    "Architectures":
+    {
+        "simba-like" : "./Examples/AlexNet_Simba/simba_like",
+        "eyeriss" : "",
+        "gemini" : "",
+        "gpu" : ""
+    },
+    "Combinations":
+    {
+        "VGG02 | Simba-like" : "./Examples/VGG_Simba/BenchMarkLogFiles",
+        "AlexNet | Simba-like" : "./Examples/AlexNet_Simba/BenchMarkLogFiles"
+    }
+}

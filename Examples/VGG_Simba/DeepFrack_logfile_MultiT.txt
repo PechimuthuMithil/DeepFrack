@@ -1,0 +1,16 @@
+[[11 11] [0 10]]
+[14 7]
+['0' '11111111110']
+Fuse Stack 1: (0, 10) with a cost of 8949.62 uJ
+-> Tiles Used: [7 7 7 7]
+Layers, whose weights were cached: Layer 0 Layer 1 Layer 2 Layer 3 Layer 4 Layer 5 Layer 6 Layer 7 Layer 8 Layer 9 
+
+Fuse Stack 2: (11, 11) with a cost of 1460.03 uJ
+-> Tiles Used: [14]
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 10409.650000000001 uJ
+
+Single Layer Scheduling cost: 36449.1 uJ
+Fused Layer scheduling gives an energy reduction of 71.44058426682689%
+Total Elapsed Time: 00:01:40

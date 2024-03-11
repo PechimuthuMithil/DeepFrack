@@ -2,6 +2,8 @@ import os
 import yaml
 import json
 import csv
+import numpy as np
+import ast
 
 def Read(stats_file):
     stats_file = stats_file+'/timeloop-mapper.stats.txt'
@@ -58,9 +60,25 @@ def write_to_csv(file_path, data_list):
 
 layers = []
 
-layer_folder_path = '/TestingAlexNet/AlexNet'  # Please note that the layers should be named 01,02,03...
-Plotdata_file_path = "/TestingAlexNet/PlottingData.csv" # Path to csv file
-BenchMrkrLog_folder = '/TestingAlexNet/BenchMarkLogFiles' # Path to the folder that contains the Log Files created during the Bench Marking process
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/VGG02'  # Please note that the layers should be named 01,02,03...
+Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/VGG_Simba/PlottingData.csv" # Path to csv file
+BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles' # Path to the folder that contains the Log Files created during the Bench Marking process
+DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/DeepFrack_logfile_MultiT.txt'
+LBLCFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json'
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+logo = '''
+ _____                      _______               _     
+(____ \                    (_______)             | |    
+ _   \ \ ____ ____ ____     _____ ____ ____  ____| |  _ 
+| |   | / _  ) _  )  _ \   |  ___) ___) _  |/ ___) | / )
+| |__/ ( (/ ( (/ /| | | |  | |  | |  ( ( | ( (___| |< ( 
+|_____/ \____)____) ||_/   |_|  |_|   \_||_|\____)_| \_)
+                  |_|                                   
+
+'''
+print(logo)
 
 for file_name in os.listdir(layer_folder_path):
     if file_name.endswith('.yaml'):
@@ -68,14 +86,17 @@ for file_name in os.listdir(layer_folder_path):
         layers.append(file_path)
 layers.sort(key = GetNum)
 
-stacks = [(0,3)] # Get these vales from the Stats File from the DeepFrack Wrapper
-tiles = [13] # Get these vales from the Stats File from the DeepFrack Wrapper
-WCPs = ['0000'] # Get these vales from the Stats File from the DeepFrack Wrapper
+# stacks = [(0,3)] # Get these vales from the Stats File from the DeepFrack Wrapper
+# tiles = [13] # Get these vales from the Stats File from the DeepFrack Wrapper
+# WCPs = ['0000'] # Get these vales from the Stats File from the DeepFrack Wrapper
 
+lf = open(DF_LogFile, "r")
+stacks = ast.literal_eval(lf.readline().replace(" ",","))
+tiles = ast.literal_eval(lf.readline().replace(" ",","))
+WCPs = ast.literal_eval(lf.readline().replace(" ",","))
 datata = []
 
 ### TO GET WHAT IS THE TILES AVAILABLE ###
-LBLCFile = '/TestingAlexNet/BenchMarkLogFiles/LBLC.json'
 LBLC = load_dictionary_from_file(LBLCFile)
 
 for k in range(len(stacks)):
