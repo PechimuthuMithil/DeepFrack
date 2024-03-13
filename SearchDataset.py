@@ -47,7 +47,7 @@ def main():
     print(logo)
 
     # Database dictionary
-    database = load_dictionary_from_file("./Datasets.json")
+    database = load_dictionary_from_file("TestingDF/DeepFrack_temp/Datasets.json")
 
     # Ask the user for the required Workload
     workload_query = input("Enter the required Workload: ")
@@ -91,10 +91,12 @@ def main():
     if (ans_w.lower() == 'n'):
         workload_path = input("No match in datasets, Enter the path to the folder of the workload YAML files: \n")
         database["Workloads"][workload_query] = workload_path
+        workload_match = workload_query
 
     if (ans_a.lower() == 'n'):
         architecture_path = input("No match in datasets, Enter the path to the folder of the architecture YAML files: \n")
         database["Architectures"][architecture_query] = architecture_path
+        architecture_match = architecture_query
 
     final_workload = database["Workloads"][workload_match]
     final_architecture = database["Architectures"][architecture_match]
@@ -102,7 +104,7 @@ def main():
     print("Use the following while runnign the Benchmarker.py: \n")
     print("folder_path: ", final_workload, "\n")
     print("architecture description parent folder: ", final_architecture, "\n")
-
+    save_dictionary_to_file(database,"TestingDF/DeepFrack_temp/Datasets.json")
 
 # Execute the main function
 if __name__ == "__main__":
