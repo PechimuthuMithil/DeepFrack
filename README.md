@@ -1,6 +1,8 @@
 Note: This is a dummy repository. The source code in this repository support CNNs. <-- Containers: GeminiBenchMarker2, MithilDeepFrackTesting  
-TODO: Make the Hardware Benchmarker, multi threaded. That is, 7 threads for each of the 7 benchmarks.  
-The colouring algorthm that baically tiles a sqaure with tiles from a tile list is ery slow for some reason for medium size squares. Need to look into it to optimize it or parallelize it.  
+TODO:   
+1) Make the Hardware Benchmarker, multi threaded. That is, 7 threads for each of the 7 benchmarks.
+2) The colouring algorthm that baically tiles a sqaure with tiles from a tile list is ery slow for some reason for medium size squares. Need to look into it to optimize it or parallelize it.
+3) NEED TO PERFORM SENSITIVITY ANALYSIS
 
 ---
 ```
