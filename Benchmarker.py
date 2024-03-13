@@ -2,6 +2,7 @@ import os
 import yaml
 import subprocess
 import json
+import time
 
 def save_dictionary_to_file(dictionary, filename):
     with open(filename, 'w') as file:
@@ -105,13 +106,13 @@ def GetNum(FileName):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/VGG02_2'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/mapper/mapper.yaml'
-arch = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/arch/simba_like.yaml'
-components = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/arch/components' # folder containg the components
-map_constraints = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/constraints/simba_like_map_constraints.yaml'
-arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/simba_like/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
-OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles'
+folder_path = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/problemCNN/Generator'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/FP32_Gemmini/mapper/mapper.yaml'
+arch = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/FP32_Gemmini/arch/gemini_like.yaml'
+components = '' # folder containg the components
+map_constraints = ''
+arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/FP32_Gemmini/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Benchmrkr_log/Generator'
 Padding_Width = 0
 Padding_Height = 0
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -138,6 +139,8 @@ for file_name in os.listdir(folder_path):
         file_path = os.path.join(folder_path, file_name)
         layers.append(file_path)
 layers.sort(key = GetNum, reverse = True)
+
+st = time.time()
 
 for df in Dataflow_types:
     ###     GET THE DATA    ###
@@ -202,6 +205,7 @@ for df in Dataflow_types:
     save_dictionary_to_file(LayerData,OutDir_partial+'/'+df+'.json')
     print(f"SAVED BENCHMARKED DATA AT --> {OutDir_partial+'/'+df+'.json'}")
     
-
+et = time.time()
+print("Total Elapsed Time to Benchmark: ",time.strftime("%H:%M:%S", time.gmtime(et-st)))
 
     

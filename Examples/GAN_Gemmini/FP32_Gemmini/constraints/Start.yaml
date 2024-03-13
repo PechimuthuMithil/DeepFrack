@@ -1,0 +1,23 @@
+architecture_constraints:
+  targets:
+  # certain buffer only stores certain datatypes
+  - target: DRAM
+    type: bypass
+    bypass: [Outputs]
+    keep: [Inputs, Weights]
+  - target: Scratchpad
+    type: bypass
+    bypass: [Outputs]
+    keep: [Inputs, Weights]
+  - target: Input_Buffer
+    type: bypass
+    bypass: [Weights, Outputs]
+    keep: [Inputs]
+  - target: Accumulator
+    type: bypass
+    bypass: [Weights, Inputs]
+    keep: [Outputs]
+  - target: Registers
+    type: bypass
+    bypass: [Inputs, Outputs]
+    keep: [Weights]

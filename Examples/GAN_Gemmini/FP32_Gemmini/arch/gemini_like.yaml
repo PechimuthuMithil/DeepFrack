@@ -1,0 +1,71 @@
+# A Timeloop-compatible YAML definition of an architecture similar to Gemminiq
+architecture:
+  version: 0.3
+
+  subtree:
+  - name: System
+    local:
+    - name: DRAM
+      class: DRAM
+      attributes:
+        type: HBM2
+        width: 32
+        word-bits: 32
+        block_size: 1
+        shared_bandwidth: 6
+        latency: 1ns
+
+    subtree:
+    - name: Chip
+      attributes:
+        technology: 45nm
+        latency: 1ns
+      local:
+      - name: Scratchpad
+        class: SRAM
+        attributes:
+          entries: 262144
+          depth: 16384
+          width: 512
+          word-bits: 32
+          n_rdwr_ports: 2
+          n_banks: 4
+      subtree:
+      - name: PECols[0..15] # only the K dim can be parallelized across Accumulator columns
+        local:
+        - name: Accumulator
+          class: SRAM
+          attributes:
+            entries: 1024 # acc size / pe_dim = 16384/16
+            depth: 1024
+            width: 32
+            word-bits: 32
+            network-word-bits: 32
+            n_rdwr_ports: 2
+            n_banks: 2
+        - name: Input_Buffer
+          class: SRAM
+          attributes:
+            entries: 1024
+            depth: 1024
+            width: 512
+            word-bits: 32
+            n_rdwr_ports: 2
+            n_banks: 2
+        subtree:
+        - name: PERows[0..15]
+          local:
+          - name: Registers
+            class: SRAM
+            attributes:
+              depth: 1
+              width: 32
+              entries: 1
+              word-bits: 32
+              n_rdwr_ports: 2
+              n_banks: 1
+          - name: MACC
+            class: intmac
+            attributes:
+              datawidth: 32
+              word-bits: 32

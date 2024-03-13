@@ -474,11 +474,11 @@ st = time.time()
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/VGG02'  # Folder containing all the layers
-BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles'
+folder_path = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/problemCNN/Generator'  # Folder containing all the layers
+BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Benchmrkr_log/Generator'
 CheatSheet = '/TestingDF/DeepFrack_temp/CheatSheet.json'
-OutputImgFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/Plots/Comparison_multiT.jpg'
-LogFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/DeepFrack_logfile_MultiT.txt'
+OutputImgFile = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Plots/Generator_Comparison_multiT.jpg'
+LogFile = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Generator_DeepFrack_logfile_MultiT.txt'
 M = 4 # Number of threads to use.
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -672,11 +672,11 @@ for stack in d:
         WCPS.append(WeightsCached[stack])
 
 with open(LogFile, 'a') as sf: 
-    sf.write(np.array2string(np.array(d)))
+    sf.write(f"{d}")
     sf.write("\n")
-    sf.write(np.array2string(np.array(distinct_tiles)))
+    sf.write(f"{distinct_tiles}")
     sf.write("\n")
-    sf.write(np.array2string(np.array(WCPS)))
+    sf.write(f"{WCPS}")
     sf.write("\n")
     for stack in range(a-1,-1,-1):
         sf.write(f"Fuse Stack {j}: {d[stack]} with a cost of {cost[d[stack]]} uJ\n")
@@ -720,4 +720,4 @@ with open(LogFile, 'a') as sf2:
     sf2.write(f"Total Elapsed Time: {time.strftime('%H:%M:%S', time.gmtime(et-st))}")
 
 print(f"Stored the statistics at {LogFile}")
-print("Total Elapsed Time:",time.strftime("%H:%M:%S", time.gmtime(et-st)))
+print("Total Elapsed Time For the Core to Schedule: ",time.strftime("%H:%M:%S", time.gmtime(et-st)))

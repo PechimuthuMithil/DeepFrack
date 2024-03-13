@@ -13,17 +13,18 @@ def Read(stats_file):
     for i, line in enumerate(lines):
         if line.strip() == "Summary Stats":
             # Read pJ/Compute
-            pJ_compute_line = lines[i+24].strip()
-            pJ_compute = float(pJ_compute_line.split('=')[1].strip())
+            # energy_line = lines[i+5].strip()
+            # energy = float(pJ_compute_line.split('=')[1].strip())
 
             # Read Computes
             computes_line = lines[i+9].strip()
             computes = int(computes_line.split('=')[1].strip())
-
+            
             # Read Cycles
             cycles_line = lines[i+4].strip()
             cycles = int(cycles_line.split(':')[1].strip())
             # Add to summary_stats dictionary
+            
 
         if line.strip() == "pJ/Compute":
             # For Eyeriss
@@ -61,11 +62,12 @@ def write_to_csv(file_path, data_list):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/VGG02'  # Please note that the layers should be named 01,02,03...
-Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/VGG_Simba/PlottingData.csv" # Path to csv file
-BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles' # Path to the folder that contains the Log Files created during the Bench Marking process
-DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/DeepFrack_logfile_MultiT.txt'
-LBLCFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json'
+layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/problemCNN/Discriminator'  # Please note that the layers should be named 01,02,03...
+Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Discriminator_PlottingData.csv" # Path to csv file
+BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Benchmrkr_log/Discriminator' # Path to the folder that contains the Log Files created during the Bench Marking process
+DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Discriminator_DeepFrack_logfile_MultiT.txt'
+offset = 1
+#LBLCFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json'
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 logo = '''
@@ -80,6 +82,13 @@ logo = '''
 '''
 print(logo)
 
+for file_name in os.listdir(BenchMrkrLog_folder):
+    if file_name.endswith('.json'):
+        name = file_name[:-5]
+        path = os.path.join(BenchMrkrLog_folder, file_name)
+        if name == 'LBLC':
+            LBLCFile = path
+
 for file_name in os.listdir(layer_folder_path):
     if file_name.endswith('.yaml'):
         file_path = os.path.join(layer_folder_path, file_name)
@@ -91,9 +100,10 @@ layers.sort(key = GetNum)
 # WCPs = ['0000'] # Get these vales from the Stats File from the DeepFrack Wrapper
 
 lf = open(DF_LogFile, "r")
-stacks = ast.literal_eval(lf.readline().replace(" ",","))
-tiles = ast.literal_eval(lf.readline().replace(" ",","))
-WCPs = ast.literal_eval(lf.readline().replace(" ",","))
+stacks = eval(lf.readline())
+tiles = eval(lf.readline())
+WCPs = eval(lf.readline())
+print(stacks,"\n",tiles,"\n",WCPs)
 datata = []
 
 ### TO GET WHAT IS THE TILES AVAILABLE ###

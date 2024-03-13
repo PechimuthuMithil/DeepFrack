@@ -1,0 +1,28 @@
+[(4, 4), (3, 3), (2, 2), (1, 1), (0, 0)]
+[1, 4, 8, 16, 32]
+['0', '0', '0', '0', '0']
+Fuse Stack 1: (0, 0) with a cost of 113.97 uJ
+-> Tiles Used: [32]
+Layers, whose weights were cached: None
+
+Fuse Stack 2: (1, 1) with a cost of 919.96 uJ
+-> Tiles Used: [16]
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (2, 2) with a cost of 1108.99 uJ
+-> Tiles Used: [8]
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (3, 3) with a cost of 2009.5 uJ
+-> Tiles Used: [4]
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (4, 4) with a cost of 4.81 uJ
+-> Tiles Used: [1]
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 4157.2300000000005 uJ
+
+Single Layer Scheduling cost: 4157.2300000000005 uJ
+Fused Layer scheduling gives an energy reduction of 0.0%
+Total Elapsed Time: 00:00:00
