@@ -474,11 +474,11 @@ st = time.time()
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/AlexNet'  # Folder containing all the layers
-BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/Benchmrkr_log'
+folder_path = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/MobileNet'  # Folder containing all the layers
+BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/BenchMrkr_log'
 CheatSheet = '/TestingDF/DeepFrack_temp/CheatSheet.json'
-OutputImgFile = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/Plots/Comparison_multiT.jpg'
-LogFile = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/DeepFrack_logfile_MultiT.txt'
+OutputImgFile = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/Plots/Comparison_multiT.jpg'
+LogFile = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/DeepFrack_logfile_MultiT.txt'
 WeightLevel_name = 'PEWeightBuffer'
 WeightLevel_size = 4096*128
 InputLevel_name = 'GlobalBuffer'
@@ -486,7 +486,7 @@ InputLevel_size = 65536
 OutputLevel_name = 'GlobalBuffer'
 OutputLevel_size = 65536
 
-M = 4 # Number of threads to use.
+M = 10 # Number of threads to use.
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 logo = '''

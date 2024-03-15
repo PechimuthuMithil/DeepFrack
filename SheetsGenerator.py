@@ -62,10 +62,10 @@ def write_to_csv(file_path, data_list):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/AlexNet'  # Please note that the layers should be named 01,02,03...
-Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/PlottingData.csv" # Path to csv file
-BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/Benchmrkr_log' # Path to the folder that contains the Log Files created during the Bench Marking process
-DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/DeepFrack_logfile_MultiT.txt'
+layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/MobileNet'  # Please note that the layers should be named 01,02,03...
+Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/PlottingData.csv" # Path to csv file
+BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/BenchMrkr_log' # Path to the folder that contains the Log Files created during the Bench Marking process
+DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/DeepFrack_logfile_MultiT.txt'
 offset = 1
 #LBLCFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json'
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
