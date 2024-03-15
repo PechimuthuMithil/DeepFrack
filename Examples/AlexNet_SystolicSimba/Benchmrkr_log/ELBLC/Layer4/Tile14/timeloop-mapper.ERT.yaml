@@ -1,0 +1,244 @@
+ERT:
+  version: 0.3
+  tables:
+  - name: System.DRAM
+    actions:
+    - name: read
+      arguments: null
+      energy: 1
+    - name: write
+      arguments: null
+      energy: 1
+    - name: idle
+      arguments: null
+      energy: 0
+  - name: System.ws.PE[0..15].PEInputBuffer
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04945
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 16.71502
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 7.19184
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 23.8574
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04945
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 13.57104
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 5.84442
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 19.366
+    - name: idle
+      arguments: null
+      energy: 0.01255
+  - name: System.ws.PE[0..15].PEWeightBuffer[0..7]
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04909
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 12.65274
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 5.45065
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 18.0543
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04909
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 7.15949
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 3.0964
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 10.2068
+    - name: idle
+      arguments: null
+      energy: 0.01219
+  - name: System.ws.PE[0..15].PEAccuBuffer[0..7]
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04881
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 2.03134
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.89847
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 2.88099
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04881
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 1.21879
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.55023
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 1.72021
+    - name: idle
+      arguments: null
+      energy: 0.01191
+  - name: System.ws.PE[0..15].PEWeightRegs[0..63]
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.05104
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.3368
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.05104
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 0.3368
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.05104
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.3368
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.05104
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 0.3368
+    - name: idle
+      arguments: null
+      energy: 0.01414
+  - name: System.ws.PE[0..15].LMAC[0..63]
+    actions:
+    - name: compute
+      arguments: null
+      energy: 6.22065
+  - name: System.ws.GlobalBuffer
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.05952
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 181.23722
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 77.7071
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 258.8848
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.05952
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 92.31342
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 39.5969
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 131.8508
+    - name: idle
+      arguments: null
+      energy: 0.02262

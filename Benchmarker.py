@@ -106,13 +106,13 @@ def GetNum(FileName):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/problemCNN/Generator'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/FP32_Gemmini/mapper/mapper.yaml'
-arch = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/FP32_Gemmini/arch/gemini_like.yaml'
-components = '' # folder containg the components
-map_constraints = ''
-arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/FP32_Gemmini/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
-OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/Benchmrkr_log/Generator'
+folder_path = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/AlexNet'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/mapper/mapper.yaml'
+arch = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/arch/simba_like.yaml'
+components = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/arch/components' # folder containg the components
+map_constraints = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/constraints/simba_like_map_constraints.yaml'
+arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/AlexNet_SystolicSimba/Benchmrkr_log'
 Padding_Width = 0
 Padding_Height = 0
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

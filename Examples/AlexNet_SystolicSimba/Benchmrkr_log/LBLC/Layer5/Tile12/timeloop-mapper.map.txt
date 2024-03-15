@@ -1,0 +1,33 @@
+
+DRAM [ Weights:884736 (884736) ] 
+--------------------------------
+| for M in [0:4)
+|   for C in [0:2)
+
+GlobalBuffer [ Inputs:37632 (37632) Outputs:9216 (9216) ] 
+---------------------------------------------------------
+|     for P in [0:6)
+|       for C in [0:8) (Spatial-X)
+|         for M in [0:2) (Spatial-X)
+
+PEInputBuffer [ Inputs:1344 (1344) ] 
+------------------------------------
+|           for Q in [0:1)
+|             for M in [0:8) (Spatial-Y)
+
+PEWeightBuffer [ Weights:864 (864) ] 
+------------------------------------
+|               for R in [0:3)
+|                 for C in [0:3)
+|                   for S in [0:3)
+
+PEAccuBuffer [ Outputs:96 (96) ] 
+--------------------------------
+|                     for M in [0:4)
+|                       for C in [0:8) (Spatial-Y)
+
+PEWeightRegs [ Weights:1 (1) ] 
+------------------------------
+|                         for Q in [0:12)
+|                           for P in [0:2)
+
