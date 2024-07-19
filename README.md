@@ -1,18 +1,13 @@
-Note: This is a dummy repository. The source code in this repository support CNNs. <-- Containers: GeminiBenchMarker2, MithilDeepFrackTesting  
-TODO:   
-1) Make the Hardware Benchmarker, multi threaded. That is, 7 threads for each of the 7 benchmarks.
-2) The colouring algorthm that baically tiles a sqaure with tiles from a tile list is ery slow for some reason for medium size squares. Need to look into it to optimize it or parallelize it.
-3) NEED TO PERFORM SENSITIVITY ANALYSIS
 
 ---
 ```
-                             _____                      _______               _     
-                            (____ \                    (_______)             | |    
-                             _   \ \ ____ ____ ____     _____ ____ ____  ____| |  _ 
-                            | |   | / _  ) _  )  _ \   |  ___) ___) _  |/ ___) | / )
-                            | |__/ ( (/ ( (/ /| | | |  | |  | |  ( ( | ( (___| |< ( 
-                            |_____/ \____)____) ||_/   |_|  |_|   \_||_|\____)_| \_)
-                                              |_|                                   
+                                    _____                      _______               _     
+                                   (____ \                    (_______)             | |    
+                                    _   \ \ ____ ____ ____     _____ ____ ____  ____| |  _ 
+                                   | |   | / _  ) _  )  _ \   |  ___) ___) _  |/ ___) | / )
+                                   | |__/ ( (/ ( (/ /| | | |  | |  | |  ( ( | ( (___| |< ( 
+                                   |_____/ \____)____) ||_/   |_|  |_|   \_||_|\____)_| \_)
+                                                     |_|                                   
 ```
 ---
 # PROJECT DEEPFRACK 
@@ -105,4 +100,9 @@ The time consumed to perform this is almost neglegible.
 ## Future Works
 1) Results on inception networks.  
 2) Reference material for hardware designers to develop fused layer scheduling favourable hardware accelerators.  
+
+Note for NanoDC: The source code in this repository support CNNs. <-- Containers: GeminiBenchMarker2, MithilDeepFrackTesting  
+TODO:   
+1) The colouring algorthm that baically tiles a sqaure with tiles from a tile list is ery slow for some reason for medium size squares. Need to look into it to optimize it or parallelize it.
+2) Update with DOSA and COSA models insetead of Timeloop.
 
