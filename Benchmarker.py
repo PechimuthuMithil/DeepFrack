@@ -106,13 +106,13 @@ def GetNum(FileName):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/MobileNet'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/mapper/mapper.yaml'
-arch = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/arch/simba_like.yaml'
-components = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/arch/components' # folder containg the components
-map_constraints = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/constraints/simba_like_map_constraints.yaml'
-arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/GAN_SimbaSystolic/SystolicSimba/SIMBA/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
-OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/BenchMrkr_log'
+folder_path = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/AlexNet'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/mapper/mapper.yaml'
+arch = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/arch/simba_like.yaml'
+components = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/arch/components' # folder containg the components
+map_constraints = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/constraints/simba_like_map_constraints.yaml'
+arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/BenchMrk_2'
 Padding_Width = 0
 Padding_Height = 0
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

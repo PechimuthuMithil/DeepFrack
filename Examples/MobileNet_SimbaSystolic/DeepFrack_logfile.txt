@@ -1,0 +1,19 @@
+[(0, 9)]
+[7]
+['0000000000']
+Fuse Stack 1: (0, 9) with a 
+1) Energy: 729.4100000000001 uJ
+2) Area: 2.7646533300000002 mm2
+3) Cycles: 357310.0
+-> Tiles Used: [7]
+Layers, whose weights were cached: None
+
+Total Energy with Fused Layer Scheduling= 729.4100000000001 uJ
+Total Area with Fused Layer Scheduling= 2.7646533300000002 mm2
+Total Cycles with Fused Layer Scheduling= 357310.0
+
+Single Layer Scheduling Energy: 2558.18 uJ
+Single Layer Scheduling Area: 2.7646533300000002 mm2
+Single Layer Scheduling Cycles: 1101146.0
+Fused Layer scheduling gives an energy reduction of 71.4871510214293%
+Total Elapsed Time: 00:00:01

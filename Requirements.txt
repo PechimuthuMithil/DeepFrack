@@ -1,0 +1,8 @@
+1) Python
+2) Timeloop / Accelergy
+3) numpy
+4) yaml
+5) json
+6) ast
+7) matplotlib
+8) subprocesses

@@ -62,12 +62,12 @@ def write_to_csv(file_path, data_list):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/MobileNet'  # Please note that the layers should be named 01,02,03...
-Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/PlottingData.csv" # Path to csv file
-BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/BenchMrkr_log' # Path to the folder that contains the Log Files created during the Bench Marking process
-DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/DeepFrack_logfile_MultiT.txt'
+layer_folder_path = '/TestingDF/DeepFrack_temp/Examples/GAN_Gemmini/problemCNN'  # Please note that the layers should be named 01,02,03...
+Plotdata_file_path = "/TestingDF/DeepFrack_temp/Examples/VGG_Simba/PlottingData_tt.csv"
+BenchMrkrLog_folder = '/' # Path to the folder that contains the Log Files created during the Bench Marking process
+DF_LogFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/DeepFrack_logfile_MultiT.txt'
 offset = 1
-#LBLCFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json'
+# LBLCFile = '/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json'
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 logo = '''
@@ -94,7 +94,7 @@ for file_name in os.listdir(layer_folder_path):
         file_path = os.path.join(layer_folder_path, file_name)
         layers.append(file_path)
 layers.sort(key = GetNum)
-
+LBLCFile="/TestingDF/DeepFrack_temp/Examples/VGG_Simba/BenchMarkLogFiles/LBLC.json"
 # stacks = [(0,3)] # Get these vales from the Stats File from the DeepFrack Wrapper
 # tiles = [13] # Get these vales from the Stats File from the DeepFrack Wrapper
 # WCPs = ['0000'] # Get these vales from the Stats File from the DeepFrack Wrapper
@@ -106,6 +106,9 @@ WCPs = eval(lf.readline())
 print(stacks,"\n",tiles,"\n",WCPs)
 datata = []
 
+stacks = [(0,0),(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11)]
+tiles = [224,224,112,112,56,56,56,28,28,24,14,14]
+WCPs = ["0"]*12
 ### TO GET WHAT IS THE TILES AVAILABLE ###
 LBLC = load_dictionary_from_file(LBLCFile)
 
