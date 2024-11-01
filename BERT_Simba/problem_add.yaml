@@ -2,8 +2,8 @@ problem:
   instance:
     R: 1
     S: 1
-    P: 841
-    Q: 841
+    P: 873
+    Q: 873
     C: 2
   shape:
     name: Attn-gemm

@@ -40,24 +40,24 @@ Info: estimator plug-in identified by:  /usr/local/share/accelergy/estimation_pl
 Info: estimator plug-in identified by:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-aladdin-plug-in/aladdin.estimator.yaml 
 Info: CACTI plug-in... Querying CACTI for request:
  {'class_name': 'SRAM', 'attributes': OrderedDict([('technology', '45nm'), ('width', 128), ('depth', 1024), ('latency', '1ns'), ('n_rdwr_ports', 2), ('n_banks', 1), ('n_rd_ports', 0), ('n_wr_ports', 0)]), 'action_name': 'write', 'arguments': {'data_delta': 0, 'address_delta': 0}}
-copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
-CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
+copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
+CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
 Info: CACTI plug-in... Querying CACTI for request:
  {'class_name': 'SRAM', 'attributes': OrderedDict([('technology', '45nm'), ('width', 128), ('depth', 512), ('latency', '1ns'), ('n_rdwr_ports', 2), ('n_banks', 1), ('n_rd_ports', 0), ('n_wr_ports', 0)]), 'action_name': 'write', 'arguments': {'data_delta': 0, 'address_delta': 0}}
-copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
-CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
+copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
+CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
 Info: CACTI plug-in... Querying CACTI for request:
  {'class_name': 'SRAM', 'attributes': OrderedDict([('technology', '45nm'), ('width', 64), ('depth', 64), ('latency', '1ns'), ('n_rdwr_ports', 2), ('n_banks', 1), ('n_rd_ports', 0), ('n_wr_ports', 0)]), 'action_name': 'write', 'arguments': {'data_delta': 0, 'address_delta': 0}}
-copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
-CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
+copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
+CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
 Info: CACTI plug-in... Querying CACTI for request:
  {'class_name': 'SRAM', 'attributes': OrderedDict([('technology', '45nm'), ('width', 512), ('depth', 2048), ('latency', '1ns'), ('n_rdwr_ports', 2), ('n_banks', 1), ('n_rd_ports', 0), ('n_wr_ports', 0)]), 'action_name': 'write', 'arguments': {'data_delta': 0, 'address_delta': 0}}
-copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
-CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_26_25_SRAM.cfg
+copy  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/default_SRAM.cfg  to  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
+CACTI plug-in removing temp file:  /usr/local/share/accelergy/estimation_plug_ins/accelergy-cacti-plug-in/cacti/timeloop-mapper.11_01_18_35_01_SRAM.cfg
 Warn: No action counts are specified as yaml input 
-Info: flattened architecture is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile841/timeloop-mapper.flattened_architecture.yaml 
-Info: energy reference table is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile841/timeloop-mapper.ERT.yaml 
-Info: energy reference table summary is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile841/timeloop-mapper.ERT_summary.yaml 
+Info: flattened architecture is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile873/timeloop-mapper.flattened_architecture.yaml 
+Info: energy reference table is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile873/timeloop-mapper.ERT.yaml 
+Info: energy reference table summary is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile873/timeloop-mapper.ERT_summary.yaml 
 Warn: no runtime energy estimations are generated... not generating energy_estimation.yaml 
-Info: area reference table is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile841/timeloop-mapper.ART.yaml 
-Info: area reference table summary is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile841/timeloop-mapper.ART_summary.yaml 
+Info: area reference table is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile873/timeloop-mapper.ART.yaml 
+Info: area reference table summary is saved to: BERT_Simba/Benchmarks2/LBLC/Add/Tile873/timeloop-mapper.ART_summary.yaml 
