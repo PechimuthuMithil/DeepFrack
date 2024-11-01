@@ -1,0 +1,8 @@
+MHead 3
+Attn 8
+Attn 8
+QKV 8
+QKV 8
+MHead 1
+BtlExp 1
+BtlCont 1

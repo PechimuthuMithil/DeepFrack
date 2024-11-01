@@ -1,0 +1,46 @@
+ART_summary:
+  version: 0.3
+  table_summary:
+  - name: System.DRAM
+    area: 0
+    primitive_estimations: Cacti
+  - name: System.ws.PE[0..15].PEInputBuffer
+    area: 111821.4
+    primitive_estimations:
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].PEWeightBuffer[0..7]
+    area: 58290.8
+    primitive_estimations:
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].PEAccuBuffer[0..7]
+    area: 4675.33
+    primitive_estimations:
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].PEWeightRegs[0..63]
+    area: 55.4
+    primitive_estimations:
+    - name: storage
+      estimator: dummy_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: System.ws.PE[0..15].LMAC[0..63]
+    area: 3122.2
+    primitive_estimations:
+    - name: intmac
+      estimator: Aladdin_table
+  - name: System.ws.GlobalBuffer
+    area: 821250.4
+    primitive_estimations:
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0..1]
+      estimator: Aladdin_table

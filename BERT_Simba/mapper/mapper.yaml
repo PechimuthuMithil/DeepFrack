@@ -1,0 +1,9 @@
+mapper:
+  optimization-metrics: [ delay, energy ]
+  num-threads: 24
+  timeout: 1000000
+  victory-condition: 2000
+  algorithm: random-pruned
+  max-permutations-per-if-visit: 16
+  sync-interval: 10
+  

@@ -1,0 +1,100 @@
+architecture:
+  version: 0.3
+  local:
+  - name: System.ws.PE[0..15].PEInputBuffer
+    class: storage
+    subclass: smartbuffer_SRAM
+    attributes:
+      cluster-size: 1
+      datawidth: 16
+      latency: 1ns
+      memory_depth: 1024
+      memory_width: 128
+      meshX: 16
+      n_banks: 1
+      n_buffets: 1
+      n_rdwr_ports: 2
+      technology: 45nm
+      word-bits: 16
+  - name: System.ws.PE[0..15].PEWeightBuffer[0..7]
+    class: storage
+    subclass: smartbuffer_SRAM
+    attributes:
+      cluster-size: 1
+      datawidth: 16
+      latency: 1ns
+      memory_depth: 512
+      memory_width: 128
+      meshX: 16
+      n_banks: 1
+      n_buffets: 1
+      n_rdwr_ports: 2
+      technology: 45nm
+      word-bits: 16
+  - name: System.ws.PE[0..15].PEAccuBuffer[0..7]
+    class: storage
+    subclass: smartbuffer_SRAM
+    attributes:
+      cluster-size: 1
+      datawidth: 16
+      latency: 1ns
+      memory_depth: 64
+      memory_width: 64
+      meshX: 16
+      n_banks: 1
+      n_buffets: 1
+      n_rdwr_ports: 2
+      technology: 45nm
+      word-bits: 16
+  - name: System.ws.PE[0..15].PEWeightRegs[0..63]
+    class: storage
+    subclass: smartbuffer_SRAM
+    attributes:
+      cluster-size: 1
+      datawidth: 16
+      latency: 1ns
+      memory_depth: 1
+      memory_width: 32
+      meshX: 16
+      n_banks: 1
+      n_buffets: 1
+      n_rdwr_ports: 2
+      num-ports: 2
+      technology: 45nm
+      word-bits: 16
+  - name: System.ws.PE[0..15].LMAC[0..63]
+    class: compute
+    subclass: lmac
+    attributes:
+      datawidth: 16
+      latency: 1ns
+      meshX: 16
+      technology: 45nm
+      word-bits: 16
+  - name: System.ws.GlobalBuffer
+    class: storage
+    subclass: smartbuffer_SRAM
+    attributes:
+      cluster-size: 1
+      datawidth: 16
+      latency: 1ns
+      memory_depth: 2048
+      memory_width: 512
+      meshX: 1
+      n_banks: 1
+      n_buffets: 1
+      n_rdwr_ports: 2
+      nports: 2
+      technology: 45nm
+      word-bits: 16
+  - name: System.DRAM
+    class: DRAM
+    attributes:
+      block-size: 1
+      datawidth: 16
+      latency: 1ns
+      shared_bandwidth: 12.8
+      technology: 45nm
+      type: DDR4
+      width: 16
+      word-bits: 16

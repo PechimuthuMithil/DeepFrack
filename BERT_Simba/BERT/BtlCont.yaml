@@ -1,0 +1,27 @@
+problem:
+  instance:
+    K: 4096
+    P: 1024
+    Q: 1024
+  shape:
+    name: BtlCont-gemm
+    dimensions:
+    - P
+    - Q
+    - K   
+    data-spaces:
+    - name: Inputs
+      projection:
+      - - - P
+      - - - K
+    - name: Weights
+      projection:
+      - - - Q
+      - - - K
+    - name: Outputs
+      projection:
+      - - - P
+      - - - Q
+      read-write: true
+
+

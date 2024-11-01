@@ -1,0 +1,384 @@
+[(5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64)]
+['0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 15336.96 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 1262.49 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 163784.94 uJ
+
+Single Layer Scheduling cost: 199441.51 uJ
+Fused Layer scheduling gives an energy reduction of 17.878209004735275%
+Total Elapsed Time: 00:00:01[(5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64)]
+['0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 52323.84 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 209609.25 uJ
+
+Single Layer Scheduling cost: 217075.28000000003 uJ
+Fused Layer scheduling gives an energy reduction of 3.4393736587602364%
+Total Elapsed Time: 00:00:02[(7, 7), (6, 6), (5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64), np.int64(1024), np.int64(64)]
+['0', '0', '0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 52323.84 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 10052.96 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 6: (6, 6) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 7: (7, 7) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 229762.13 uJ
+
+Single Layer Scheduling cost: 237228.16 uJ
+Fused Layer scheduling gives an energy reduction of 3.1471938238698134%
+Total Elapsed Time: 00:00:02[(7, 7), (6, 6), (5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64), np.int64(1024), np.int64(64)]
+['0', '0', '0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 52323.84 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 10052.96 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 6: (6, 6) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 7: (7, 7) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 229762.13 uJ
+
+Single Layer Scheduling cost: 237228.16 uJ
+Fused Layer scheduling gives an energy reduction of 3.1471938238698134%
+Total Elapsed Time: 00:00:02[(11, 11), (10, 10), (9, 9), (8, 8), (7, 7), (6, 6), (5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64), np.int64(64), np.int64(64), np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64)]
+['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 31188.48 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 5026.48 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 5026.48 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 5026.48 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 6: (6, 6) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 7: (7, 7) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 8: (8, 8) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 9: (9, 9) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 10: (10, 10) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 11: (11, 11) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 213653.25 uJ
+
+Single Layer Scheduling cost: 237228.16000000003 uJ
+Fused Layer scheduling gives an energy reduction of 9.937652427098042%
+Total Elapsed Time: 00:00:10[(11, 11), (10, 10), (9, 9), (8, 8), (7, 7), (6, 6), (5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64), np.int64(64), np.int64(64), np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64)]
+['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 31188.48 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 5026.48 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 5026.48 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 5026.48 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 6: (6, 6) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 7: (7, 7) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 8: (8, 8) with a cost of 5049.96 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 9: (9, 9) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 10: (10, 10) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 11: (11, 11) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 213653.25 uJ
+
+Single Layer Scheduling cost: 237228.16000000003 uJ
+Fused Layer scheduling gives an energy reduction of 9.937652427098042%
+Total Elapsed Time: 00:00:12[(5, 5), (4, 4), (3, 3), (2, 2), (1, 1), (0, 0)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(1024), np.int64(1024)]
+['0', '0', '0', '0', '0', '0']
+Fuse Stack 1: (0, 0) with a cost of 49736.91 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 2: (1, 1) with a cost of 20105.92 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (2, 2) with a cost of 20199.84 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (3, 3) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (4, 4) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 6: (5, 5) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 237228.16 uJ
+
+Single Layer Scheduling cost: 237228.16 uJ
+Fused Layer scheduling gives an energy reduction of 0.0%
+Total Elapsed Time: 00:00:01[(5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64)]
+['0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 58037.759999999995 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 215323.16999999998 uJ
+
+Single Layer Scheduling cost: 217075.28000000003 uJ
+Fused Layer scheduling gives an energy reduction of 0.8071439548529173%
+Total Elapsed Time: 00:00:01[(7, 7), (6, 6), (5, 5), (4, 4), (3, 3), (2, 2), (0, 1)]
+[np.int64(1024), np.int64(1024), np.int64(1024), np.int64(64), np.int64(64), np.int64(1024), np.int64(64)]
+['0', '0', '0', '0', '0', '0', '01']
+Fuse Stack 1: (0, 1) with a cost of 58037.759999999995 uJ
+-> Tiles Used: [64 64]
+-> Trace: MHead:Start-Attn:EWCC
+Layers, whose weights were cached: Layer 1 
+
+Fuse Stack 2: (2, 2) with a cost of 10052.96 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: Attn:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 3: (3, 3) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 4: (4, 4) with a cost of 10099.92 uJ
+-> Tiles Used: [[1024   64]]
+-> Trace: QKV:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 5: (5, 5) with a cost of 16578.97 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: MHead:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 6: (6, 6) with a cost of 66315.89 uJ
+-> Tiles Used: [[1024 4096]]
+-> Trace: BtlExp:SLC
+Layers, whose weights were cached: None
+
+Fuse Stack 7: (7, 7) with a cost of 64290.63 uJ
+-> Tiles Used: [[1024 1024]]
+-> Trace: BtlCont:SLC
+Layers, whose weights were cached: None
+
+Total Cost with Fused Layer Scheduling= 235476.05 uJ
+
+Single Layer Scheduling cost: 237228.16 uJ
+Fused Layer scheduling gives an energy reduction of 0.7385758925078773%
+Total Elapsed Time: 00:00:02

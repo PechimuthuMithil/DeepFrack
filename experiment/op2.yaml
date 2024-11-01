@@ -1,0 +1,27 @@
+problem:
+  instance:
+    K: 64    
+    P: 64  #M
+    Q: 64  #N
+  shape:
+    name: Attn-gemm
+    dimensions:
+    - P
+    - Q
+    - K   
+    data-spaces:
+    - name: Inputs
+      projection:
+      - - - P
+      - - - K
+    - name: Weights
+      projection:
+      - - - Q
+      - - - K
+    - name: Outputs 
+      projection:
+      - - - P
+      - - - Q
+      read-write: true
+
+

@@ -1,0 +1,73 @@
+mapping:
+  - target: PEWeightRegs
+    type: datatype
+    keep:
+      - Outputs
+    bypass:
+      - Inputs
+      - Weights
+  - target: PEAccuBuffer
+    type: datatype
+    keep:
+      - Outputs
+    bypass:
+      - Inputs
+      - Weights
+  - target: PEWeightBuffer
+    type: datatype
+    keep:
+      - Weights
+    bypass:
+      - Inputs
+      - Outputs
+  - target: PEInputBuffer
+    type: datatype
+    keep:
+      - Inputs
+    bypass:
+      - Weights
+      - Outputs
+  - target: GlobalBuffer
+    type: datatype
+    keep:
+      - Inputs
+      - Outputs
+    bypass:
+      - Weights
+  - target: DRAM
+    type: datatype
+    keep:
+      - Inputs
+      - Weights
+      - Outputs
+    bypass:
+      []
+  - target: PEWeightRegs
+    type: temporal
+    factors: P1 Q1 R1 S1 C1
+    permutation: PQRSC
+  - target: PEAccuBuffer
+    type: spatial
+    factors: P1 Q1 R1 S1 C2
+    permutation: CPQRS
+    split: 0
+  - target: PEAccuBuffer
+    type: temporal
+    factors: P1 Q1 R1 S1 C1
+    permutation: PQRSC
+  - target: PEWeightBuffer
+    type: temporal
+    factors: P1 Q1 R1 S1 C1
+    permutation: PQRSC
+  - target: PEInputBuffer
+    type: temporal
+    factors: P1 Q1 R1 S1 C1
+    permutation: PQRSC
+  - target: GlobalBuffer
+    type: temporal
+    factors: P21 Q357 R1 S1 C1
+    permutation: PQRSC
+  - target: DRAM
+    type: temporal
+    factors: P34 Q2 R1 S1 C1
+    permutation: QPRSC
