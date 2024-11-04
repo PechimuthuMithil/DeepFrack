@@ -179,7 +179,7 @@ def StackCostGenerator(
                             AdditionCost = Start["2"][str(tile)]
                             Trace+=':Start'
                         except KeyError:
-                            CurrAnswer=float('inf')        
+                            CurrAnswer=float('inf')      
                 else:
                     const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['OutWCC']
                     if np.all(const >= arch_sizes):
@@ -192,6 +192,7 @@ def StackCostGenerator(
                             Trace+=':OutWCC'
                         except KeyError:
                             CurrAnswer=float('inf')
+                if(layer_names=='Attn'): AdditionCost=0  
                 CurrAnswer+=(MultiplicationCost+AdditionCost)*num_tiles[0][1]*num_tiles[0][2]*num_tiles[0][0]*num_parallel[start]
             
             # FOR MIDDLE LAYERS
@@ -205,14 +206,15 @@ def StackCostGenerator(
 
                     weights_size = 0
                     Trace+=f'-{layer_names[start+layer]}'
-                    # for attn and qkv inputs = weights so weights always cached with inputs
+                    # for attn and qkv inputs = weights so weights always cached with inputsgh
                     if (ChosenCached[layer] == '1' or layer_names[start+layer]=='Attn' or layer_names[start+layer]=='QKV'):
                         if(layer_names[start+layer]=='QKV'):
                             # two rows produce one element in output; since next layer is disconnected does not matter
                             weights_size= inputs_size     
                         if(layer_names[start+layer]=='Attn'):
                             # entire weight block needed for one output row to go to QKV
-                            weights_size= inputs_size * num_tiles[layer-1][1]               
+                            inputs_size = (tile)**2 * num_tiles[layer-1][1] * num_parallel[start+layer]
+                            weights_size= inputs_size * num_tiles[layer-1][2]               
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['WCC']
                         if np.all(const >= arch_sizes):
                             # print(f'Out at {layer},{layer_names[start+layer]}1')
@@ -236,6 +238,7 @@ def StackCostGenerator(
                                 Trace+=f':LBLC{tile}'
                             except KeyError:
                                 CurrAnswer=float('inf')
+                    if(layer_names[start+layer]=='Attn'): AdditionCost=0
                     CurrAnswer+=(MultiplicationCost+AdditionCost)*num_tiles[0][1]*num_tiles[0][2]*num_tiles[0][0]*num_parallel[start+layer]
 
 
@@ -253,7 +256,8 @@ def StackCostGenerator(
                     if(layer_names[end-1]=='QKV'):
                         weights_size= inputs_size
                     if(layer_names[end-1]=='Attn'):
-                        weights_size= inputs_size * num_tiles[n-2][1] 
+                        inputs_size = (tile)**2 * num_tiles[n-2][1] * num_parallel[end-1] # tiling along P
+                        weights_size= inputs_size * num_tiles[n-2][2] # tiling along Q  
                     const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['EWCC']
                     if np.all(const >= arch_sizes):
                         # print(f'Out at end')
@@ -277,6 +281,7 @@ def StackCostGenerator(
                             Trace+=f':ELBLC'
                         except KeyError:
                             CurrAnswer=float('inf')
+                if(layer_names[n-1]=='Attn'): AdditionCost=0
                 CurrAnswer+=(MultiplicationCost+AdditionCost)*num_tiles[0][1]*num_tiles[0][2]*num_tiles[0][0]*num_parallel[end]
 
 
