@@ -161,8 +161,7 @@ def StackCostGenerator(
                 ### FOR FIRST LAYER ###
                 # Only two options, Start, OutWCC//.
 
-                # an entire row in output needed for next layer
-                outputs_size = (tile)**2 * num_tiles[0][1] * num_parallel[start]
+                outputs_size = (tile)**2 *  num_parallel[start]
                 inputs_size = 0 
                 weights_size = 0
                 Trace=layer_names[start]# to verify the path taken
@@ -177,7 +176,7 @@ def StackCostGenerator(
                         try:
                             MultiplicationCost = Start["1"][str(tile)]
                             AdditionCost = Start["2"][str(tile)]
-                            Trace+=':Start'
+                            Trace+=':weight not cached'
                         except KeyError:
                             CurrAnswer=float('inf')        
                 else:
@@ -189,10 +188,10 @@ def StackCostGenerator(
                         try:
                             MultiplicationCost = OutWCC["1"][str(tile)]
                             AdditionCost = OutWCC["2"][str(tile)]
-                            Trace+=':OutWCC'
+                            Trace+=':weight cached'
                         except KeyError:
                             CurrAnswer=float('inf')
-                CurrAnswer+=(MultiplicationCost+AdditionCost)*num_tiles[0][1]*num_tiles[0][2]*num_tiles[0][0]*num_parallel[start]
+                CurrAnswer+=(MultiplicationCost*num_tiles[0][2]+AdditionCost*(num_tiles[0][2]-1))*num_tiles[0][1]*num_tiles[0][0]*num_parallel[start]
             
             # FOR MIDDLE LAYERS
                 
@@ -219,7 +218,7 @@ def StackCostGenerator(
                             try:
                                 MultiplicationCost +=OutWCC["1"][str(tile)]
                                 AdditionCost +=OutWCC["2"][str(tile)]
-                                Trace+=f':OutWCC{tile}'
+                                Trace+=f':weight cached{tile}'
                             except KeyError:
                                 CurrAnswer=float('inf')
                     else:
@@ -231,26 +230,26 @@ def StackCostGenerator(
                             try:
                                 MultiplicationCost += Start["1"][str(tile)]
                                 AdditionCost += Start["2"][str(tile)]
-                                Trace+=f':LBLC{tile}'
+                                Trace+=f':weight not cached{tile}'
                             except KeyError:
                                 CurrAnswer=float('inf')
-                    CurrAnswer+=(MultiplicationCost+AdditionCost)*num_tiles[0][1]*num_tiles[0][2]*num_tiles[0][0]*num_parallel[start+layer]
+                    CurrAnswer+=(MultiplicationCost*num_tiles[0][2]+AdditionCost*(num_tiles[0][2]-1))*num_tiles[0][1]*num_tiles[0][0]*num_parallel[start+layer]
 
 
                 # FOR LAST LAYER
 
                 outputs_size = 0
-                inputs_size = (tile)**2 * num_parallel[end-1]
+                inputs_size = (tile)**2 * num_parallel[end]
                 weights_size = 0
                 Trace+=f'-{layer_names[end]}'
 
-                if(layer_names[end-1]=='MHead'):
+                if(layer_names[end]=='MHead'):
                     inputs_size = (tile)**2 
 
-                if (ChosenCached[n-1] == '1' or layer_names[end-1]=='Attn' or layer_names[end-1]=='QKV'):
-                    if(layer_names[end-1]=='QKV'):
+                if (ChosenCached[n-1] == '1' or layer_names[end]=='Attn' or layer_names[end]=='QKV'):
+                    if(layer_names[end]=='QKV'):
                         weights_size= inputs_size
-                    if(layer_names[end-1]=='Attn'):
+                    if(layer_names[end]=='Attn'):
                         weights_size= inputs_size 
                     const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['OutWCC']
                     if np.all(const >= arch_sizes):
@@ -258,10 +257,9 @@ def StackCostGenerator(
                         CurrAnswer = float('inf')
                     else:
                         try:
-                            # CHANGE TO OWCC (only weight cached) AFTER BENCHMARKING
                             MultiplicationCost += OutWCC["1"][str(tile)]
                             AdditionCost += OutWCC["2"][str(tile)]
-                            Trace+=f':EWCC'
+                            Trace+=f':weight cached'
                         except KeyError:
                             CurrAnswer=float('inf')
                 else:
@@ -271,12 +269,12 @@ def StackCostGenerator(
                         CurrAnswer = float('inf')
                     else:
                         try:
-                            MultiplicationCost += SLC["1"][str(tile)]
-                            AdditionCost += SLC["2"][str(tile)]
-                            Trace+=f':ELBLC'
+                            MultiplicationCost += Start["1"][str(tile)]
+                            AdditionCost += Start["2"][str(tile)]
+                            Trace+=f':weight not cached'
                         except KeyError:
                             CurrAnswer=float('inf')
-                CurrAnswer+=(MultiplicationCost+AdditionCost)*num_tiles[0][1]*num_tiles[0][2]*num_tiles[0][0]*num_parallel[end]
+                CurrAnswer+=((MultiplicationCost*num_tiles[0][2]) + (AdditionCost*(num_tiles[0][2]-1)))*num_tiles[0][1]*num_tiles[0][0]*num_parallel[end]
 
 
             if (CurrAnswer == 0):
