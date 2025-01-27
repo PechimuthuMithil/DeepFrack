@@ -161,7 +161,7 @@ def StackCostGenerator(
                 inputs_size = 0
                 weights_size = 0
                 const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['Start']
-                if np.all(const >= arch_sizes):
+                if np.any(const >= arch_sizes):
                     CurrAnswer = float('inf')
                     break
                 else:
@@ -186,7 +186,7 @@ def StackCostGenerator(
                     inputs_size = (LargestTileSizes[start+i-1]**2)*Ms[start+i-1]
                     weights_size = 0
                     const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['LBLC']
-                    if np.all(const >= arch_sizes):
+                    if np.any(const >= arch_sizes):
                         CurrAnswer = float('inf')
                         break
                     else:
@@ -209,7 +209,7 @@ def StackCostGenerator(
                 inputs_size = (LargestTileSizes[end-1]**2)*Ms[end-1]
                 weights_size = 0
                 const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['ELBLC']
-                if np.all(const >= arch_sizes):
+                if np.any(const >= arch_sizes):
                     CurrAnswer = float('inf')
                     break
                 else:
@@ -283,13 +283,13 @@ def StackCostGenerator(
                     weights_size = 0 
                     if (ChosenCached[0] == '1'):
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['OutWCC']
-                        if np.all(const >= arch_sizes):
+                        if np.any(const >= arch_sizes):
                             CurrAnswer_temp += float('inf')
                         else:
                             CurrAnswer_temp += OutWCC[str(start+1)][str(TileSizes[start])]
                     else:
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['Start']
-                        if np.all(const >= arch_sizes):
+                        if np.any(const >= arch_sizes):
                             CurrAnswer_temp += float('inf')
                         else:
                             CurrAnswer_temp += Start[str(start+1)][str(TileSizes[start])]
@@ -314,13 +314,13 @@ def StackCostGenerator(
                         weights_size = 0
                         if (ChosenCached[i] == '1'):
                             const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['WCC']
-                            if np.all(const >= arch_sizes):
+                            if np.any(const >= arch_sizes):
                                 CurrAnswer_temp += float('inf')
                             else:
                                 CurrAnswer_temp += FullyWCC[str(start+i+1)][str(TileSizes[start+i])]
                         else:
                             const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['LBLC']
-                            if np.all(const >= arch_sizes):
+                            if np.any(const >= arch_sizes):
                                 CurrAnswer_temp += float('inf')
                             else:
                                 CurrAnswer_temp += LBLC[str(start+i+1)][str(TileSizes[start+i])]
@@ -342,13 +342,13 @@ def StackCostGenerator(
                         inputs_size = (TileSizes[end-1]**2)*Ms[end-1]
                         weights_size = 0
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['EWCC']
-                        if np.all(const >= arch_sizes):
+                        if np.any(const >= arch_sizes):
                             CurrAnswer_temp += float('inf')
                         else:
                             CurrAnswer_temp += EWCC[str(end+1)][str(TileSizes[end])]
                     else:
                         const = np.dot(mask,np.array([[weights_size,],[inputs_size,],[outputs_size,]]))*factor['ELBLC']
-                        if np.all(const >= arch_sizes):
+                        if np.any(const >= arch_sizes):
                             CurrAnswer_temp += float('inf')
                         else:
                             CurrAnswer_temp += ELBLC[str(end+1)][str(LargestTileSizes[end])]
