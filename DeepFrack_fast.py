@@ -77,6 +77,7 @@ def StackCostGenerator(
 
 
     for ListOfTiles in ListOfLists:
+        # print(f"List of Tiles: {np.unique(ListOfTiles)}x{len(ListOfTiles)}")
         largest = ListOfTiles[0] # Size of the largest tile. This will be the sacrificial tile
         WeightSizes = {}
         Ms = {}
@@ -90,6 +91,7 @@ def StackCostGenerator(
         Tile_Width = largest
         for fileindex in range (stack[1],stack[0] -1, -1):
             file_path = layers[fileindex]
+            # print(f"    Layer YAML: {file_path}")
             with open(file_path, 'r') as file:
                     data = yaml.safe_load(file)
 
@@ -140,20 +142,30 @@ def StackCostGenerator(
             for layer in range(n):
                 if (ChosenCached[layer] == '1'):
                     TotalCachedWeights = WeightSizes[start+layer] # Calculate the total weights required.
-
+            # print(f"    Weight Caching Pattern: {ChosenCached}")
             # Now check if we can cache these many weights
             valid = False
-            if (WeightLevel_name != InputLevel_name and WeightLevel_name != OutputLevel_name):
-                if (TotalCachedWeights <= WeightLevel_size):
-                    valid = True
+            # if (WeightLevel_name != InputLevel_name and WeightLevel_name != OutputLevel_name):
+            #     if (TotalCachedWeights <= WeightLevel_size):
+            #         valid = True
+            if (TotalCachedWeights <= WeightLevel_size):
+                valid = True
 
+            # print(f"    Valid: {valid}")
             if (valid):
                 
                 # For the sacrificial largest tile
                 # This tile is called sacrificial as it will not benefit from the caching of weights
                 # Note for each tile, we will have to o through the full stack.
+                temp_weight_level_size = WeightLevel_size - TotalCachedWeights
+                temp_input_level_size = InputLevel_size
+                temp_output_level_size = OutputLevel_size
+                if InputLevel_name == WeightLevel_name:
+                    temp_input_level_size -= TotalCachedWeights
+                if OutputLevel_name == WeightLevel_name:
+                    temp_output_level_size -= TotalCachedWeights
 
-                arch_sizes = np.array([[WeightLevel_size - TotalCachedWeights,],[InputLevel_size,],[OutputLevel_size,]])
+                arch_sizes = np.array([[temp_weight_level_size,],[temp_input_level_size,],[temp_output_level_size,]])
                 ### FOR START LAYER ###
                 # 1 option Start
 
@@ -389,8 +401,14 @@ def StackCostGenerator(
 
     return BestTilingCost, BestTiling, BestWeightCaching
 
-def GetNum(FileName):
-    num = int(FileName[-7:-5])
+# def GetNum(FileName):
+#     num = int(FileName[-7:-5])
+#     return num
+def GetNum(FilePath):
+    print(f"Got filepath: {FilePath}")
+    filename = os.path.basename(FilePath)
+    print(f"Got filename: {filename}")
+    num = int(filename[11:-5])
     return num
 
 def save_dictionary_to_file(dictionary, filename):
@@ -474,19 +492,19 @@ st = time.time()
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/MobileNet'  # Folder containing all the layers
-BenchMrkrLog_folder = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/BenchMrkr_log'
-CheatSheet = '/TestingDF/DeepFrack_temp/CheatSheet.json'
-OutputImgFile = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/Plots/Comparison_multiT.jpg'
-LogFile = '/TestingDF/DeepFrack_temp/Examples/MobileNet_SimbaSystolic/DeepFrack_logfile_MultiT.txt'
-WeightLevel_name = 'PEWeightBuffer'
-WeightLevel_size = 4096*128
-InputLevel_name = 'GlobalBuffer'
-InputLevel_size = 65536
-OutputLevel_name = 'GlobalBuffer'
-OutputLevel_size = 65536
+folder_path = '/workspace/DeepFrack/Journal/workloads/problemCNN/VGG02'  # Folder containing all the layers
+BenchMrkrLog_folder = '/workspace/DeepFrack/Journal/Results/vgg02-aim/benchmarks'
+CheatSheet = '/workspace/DeepFrack/CheatSheet.json'
+OutputImgFile = '/workspace/DeepFrack/Journal/Results/vgg02-aim/comparison.jpg'
+LogFile = '/workspace/DeepFrack/Journal/Results/vgg02-aim/deepfrack-stats-file.txt'
+WeightLevel_name = 'DRAMArray'
+WeightLevel_size = 268435456*2
+InputLevel_name = 'DRAMArray'
+InputLevel_size = 268435456*2
+OutputLevel_name = 'DRAMArray'
+OutputLevel_size = 268435456*2
 
-M = 10 # Number of threads to use.
+M = 4 # Number of threads to use.
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 logo = '''
@@ -514,19 +532,19 @@ for file_name in os.listdir(BenchMrkrLog_folder):
     if file_name.endswith('.json'):
         name = file_name[:-5]
         path = os.path.join(BenchMrkrLog_folder, file_name)
-        if name == 'ELBLC':
+        if name == 'ELBLC_agg':
             EndFileLBLC = path
-        elif name == 'EWCC':
+        elif name == 'EWCC_agg':
             EndFileWCC = path
-        elif name == 'LBLC':
+        elif name == 'LBLC_agg':
             LBLCFile = path
-        elif name == 'OutWCC':
+        elif name == 'OutWCC_agg':
             OutWCCFile = path
-        elif name == 'SLC':
+        elif name == 'SLC_agg':
             SLCFile = path
-        elif name == 'Start':
+        elif name == 'Start_agg':
             StartFile = path
-        elif name == 'WCC':
+        elif name == 'WCC_agg':
             FullyWCCFile = path
         else:
             print("Invalid name:", name)

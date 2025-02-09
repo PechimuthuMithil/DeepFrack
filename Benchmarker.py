@@ -98,21 +98,32 @@ def GetEnergy(layers,tile,LastLayer,ArchConstFile, Arch, components,map_const, M
     return TileEnergy
 
 
-def GetNum(FileName):
-    num = int(FileName[-7:-5])
+# def GetNum(FileName):
+#     num = int(FileName[-7:-5])
+#     return num
+
+def GetNum(FilePath):
+    print(f"Got filepath: {FilePath}")
+    filename = os.path.basename(FilePath)
+    print(f"Got filename: {filename}")
+    num = int(filename[11:-5])
     return num
+
+# def GetNum(FileName):
+#     num = int(FileName[-12:-11])
+#     return num
 
 
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/AlexNet'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/mapper/mapper.yaml'
-arch = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/arch/simba_like.yaml'
-components = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/arch/components' # folder containg the components
-map_constraints = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/constraints/simba_like_map_constraints.yaml'
-arch_constraints_folder = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/simba_like/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
-OutDir_partial = '/TestingDF/DeepFrack_temp/Examples/AlexNet_Simba/BenchMrk_2'
+folder_path = '/workspace/DeepFrack/Journal/workloads/problemCNN/VGG02'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/workspace/DeepFrack/Journal/archs/Aim/mapper/mapper.yaml'
+arch = '/workspace/DeepFrack/Journal/archs/Aim/arch/simba_like.yaml'
+components = '/workspace/DeepFrack/Journal/archs/Aim/arch/components' # folder containg the components
+map_constraints = '/workspace/DeepFrack/Journal/archs/Aim/constraints/simba_like_map_constraints.yaml'
+arch_constraints_folder = '/workspace/DeepFrack/Journal/archs/Aim/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/workspace/DeepFrack/Journal/Results/vgg02-aim/benchmarks'
 Padding_Width = 0
 Padding_Height = 0
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -132,6 +143,7 @@ logo = '''
 print(logo)
 
 Dataflow_types = ['SLC','LBLC','ELBLC','WCC','EWCC','OutWCC','Start']
+# Dataflow_types = ['OutWCC','Start'] # TO BE REMOVED
 
 ###     SORT THE FILES IN THE FOLDER    ###
 for file_name in os.listdir(folder_path):
