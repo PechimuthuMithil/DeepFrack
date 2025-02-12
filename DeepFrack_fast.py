@@ -492,17 +492,17 @@ st = time.time()
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/workspace/DeepFrack/Journal/workloads/problemCNN/VGG02'  # Folder containing all the layers
-BenchMrkrLog_folder = '/workspace/DeepFrack/Journal/Results/vgg02-aim/benchmarks'
+folder_path = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/VGG02'  # Folder containing all the layers
+BenchMrkrLog_folder = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/benchmarks'
 CheatSheet = '/workspace/DeepFrack/CheatSheet.json'
-OutputImgFile = '/workspace/DeepFrack/Journal/Results/vgg02-aim/comparison.jpg'
-LogFile = '/workspace/DeepFrack/Journal/Results/vgg02-aim/deepfrack-stats-file.txt'
-WeightLevel_name = 'DRAMArray'
-WeightLevel_size = 268435456*2
-InputLevel_name = 'DRAMArray'
-InputLevel_size = 268435456*2
-OutputLevel_name = 'DRAMArray'
-OutputLevel_size = 268435456*2
+OutputImgFile = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/comparison.jpg'
+LogFile = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/deepfrack-stats-file.txt'
+WeightLevel_name = 'GlobalBuffer'
+WeightLevel_size = 16384*16
+InputLevel_name = 'GlobalBuffer'
+InputLevel_size = 16384*16
+OutputLevel_name = 'PEAccuBuffer'
+OutputLevel_size = 128*512
 
 M = 4 # Number of threads to use.
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
