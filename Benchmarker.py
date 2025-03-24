@@ -106,7 +106,7 @@ def GetNum(FilePath):
     print(f"Got filepath: {FilePath}")
     filename = os.path.basename(FilePath)
     print(f"Got filename: {filename}")
-    num = int(filename[11:-5])
+    num = int(filename[len("ResNet1_layer"):-5])
     return num
 
 # def GetNum(FileName):
@@ -117,13 +117,13 @@ def GetNum(FilePath):
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/workspace/DeepFrack/Journal/workloads/problemCNN/VGG02'  # Please note that the layers should be named 01,02,03,04...
-mapper = '/workspace/DeepFrack/Journal/archs/Aim/mapper/mapper.yaml'
-arch = '/workspace/DeepFrack/Journal/archs/Aim/arch/simba_like.yaml'
-components = '/workspace/DeepFrack/Journal/archs/Aim/arch/components' # folder containg the components
-map_constraints = '/workspace/DeepFrack/Journal/archs/Aim/constraints/simba_like_map_constraints.yaml'
-arch_constraints_folder = '/workspace/DeepFrack/Journal/archs/Aim/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
-OutDir_partial = '/workspace/DeepFrack/Journal/Results/vgg02-aim/benchmarks'
+folder_path = '/workspace/DeepFrack/Journal/Results/anet-aim-hbm/anet'  # Please note that the layers should be named 01,02,03,04...
+mapper = '/workspace/DeepFrack/Journal/archs/Aim-hbm/mapper/mapper.yaml'
+arch = '/workspace/DeepFrack/Journal/archs/Aim-hbm/arch/simba_like.yaml'
+components = '/workspace/DeepFrack/Journal/archs/Aim-hbm/arch/components' # folder containg the components
+map_constraints = '/workspace/DeepFrack/Journal/archs/Aim-hbm/constraints/simba_like_map_constraints.yaml'
+arch_constraints_folder = '/workspace/DeepFrack/Journal/archs/Aim-hbm/constraints' # Please specify the constriants as SLC.yaml, LBLC.yaml, ELBLC.yaml etc... It should not end with /
+OutDir_partial = '/workspace/DeepFrack/Journal/Results/anet-aim-hbm/benchmarks'
 Padding_Width = 0
 Padding_Height = 0
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION ENDS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -143,7 +143,6 @@ logo = '''
 print(logo)
 
 Dataflow_types = ['SLC','LBLC','ELBLC','WCC','EWCC','OutWCC','Start']
-# Dataflow_types = ['OutWCC','Start'] # TO BE REMOVED
 
 ###     SORT THE FILES IN THE FOLDER    ###
 for file_name in os.listdir(folder_path):
@@ -193,7 +192,7 @@ for df in Dataflow_types:
         start_width = 1
         if(df == "SLC"): # FOR SLC WE DON'T NEED TO SEE ALL THE TILES.
             start_width = Output_Width
-
+                
         for tile_width in range(start_width,Output_Width+1):
             tile_height = tile_width # Asssuming sqaure tiles #
             OutDir = OutDir_partial+'/'+df+f'/Layer{ln}/Tile{tile_height}'
@@ -202,7 +201,26 @@ for df in Dataflow_types:
 
             # NOW CHECKING SIZES #
             # THIS IS NOT NECESSARY HERE AS WE CHECK IT IN THE WRAPPER TOO #
-            ans = GetEnergy(layers,(tile_width,tile_height),curr_iter,arch_constraints_folder+'/'+df+'.yaml',arch,components,map_constraints,mapper,OutDir)
+            ans = -1
+            if (df in os.listdir(OutDir_partial)):
+                if (f'Layer{ln}' in os.listdir(OutDir_partial+'/'+df)):
+                    if (f'Tile{tile_width}' in os.listdir(OutDir_partial+'/'+df+f'/Layer{ln}')):
+                        if ('timeloop-mapper.stats.txt' in os.listdir(OutDir_partial+'/'+df+f'/Layer{ln}'+f'/Tile{tile_width}')):
+                            tile_benchmark_path = OutDir_partial+'/'+df+f'/Layer{ln}' + f'/Tile{tile_width}'
+                            stats_file = f'{tile_benchmark_path}/timeloop-mapper.stats.txt'
+                            energy = float("inf")
+                            with open(stats_file, 'r') as file:
+                                lines = file.readlines()
+
+                            for i, line in enumerate(lines):
+                                if line.strip() == "Summary Stats":
+                                    energy_line = lines[i+5].strip()
+                                    print("Energy line in stats file found -->", energy_line)
+                                    energy = float(energy_line.split(':')[1][:-3].strip())
+                            ans = energy
+            if ans < 0:
+                ans = GetEnergy(layers,(tile_width,tile_height),curr_iter,arch_constraints_folder+'/'+df+'.yaml',arch,components,map_constraints,mapper,OutDir)
+            
             TileData[tile_width] = ans
         LayerData[ln] = TileData
         curr_iter += 1
@@ -211,7 +229,8 @@ for df in Dataflow_types:
         save_dictionary_to_file(LayerData[ln],OutDir_partial+'/'+df+f'/Layer{ln}.json')
         print(f"SAVED LAYER WISE BENCHMARKED DATA FOR {df}")
         # DELETE TEMP FILES #
-        os.remove(layer[:-5]+'New'+'.yaml')
+        if os.path.exists(layer[:-5]+'New'+'.yaml'):
+            os.remove(layer[:-5]+'New'+'.yaml')
 
     # SAVE FULL MODEL LEVEL #
     save_dictionary_to_file(LayerData,OutDir_partial+'/'+df+'.json')
@@ -219,5 +238,10 @@ for df in Dataflow_types:
     
 et = time.time()
 print("Total Elapsed Time to Benchmark: ",time.strftime("%H:%M:%S", time.gmtime(et-st)))
+start_time = time.localtime(st)
+end_time = time.localtime(et)
+formatted_start_time = time.strftime("%Y-%m-%d %H:%M:%S", start_time)
+formatted_end_time = time.strftime("%Y-%m-%d %H:%M:%S", end_time)
+print(f"Benchmarking started at: {formatted_start_time}\nBenchmarking ended at:   {formatted_end_time}")
 
     
