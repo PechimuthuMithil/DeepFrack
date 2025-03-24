@@ -37,7 +37,7 @@ def StackCostGenerator(
     cache_names = [WeightLevel_name, InputLevel_name, OutputLevel_name]
     mask = [[1 if inner_name == outer_name else 0 for inner_name in cache_names] for outer_name in cache_names]
     mask = np.array(mask)
-    factor = {'SLC':np.array([0,0,0]),'LBLC':np.array([0,1,1]),'ELBLC':np.array([0,1,0]),'WCC':np.array([1,1,1]),'EWCC':np.array([1,1,0]),'OutWCC':np.array([1,0,1]),'Start':np.array([0,0,1])}
+    factor = {'SLC':np.array([[0,],[0,],[0,]]),'LBLC':np.array([[0,],[1,],[1,]]),'ELBLC':np.array([[0,],[1,],[0,]]),'WCC':np.array([[1,],[1,],[1,]]),'EWCC':np.array([[1,],[1,],[0,]]),'OutWCC':np.array([[1,],[0,],[1,]]),'Start':np.array([[0,],[0,],[1,]])}
     Dataflow_types = ['SLC','LBLC','ELBLC','WCC','EWCC','OutWCC','Start']
 
     with open(layers[stack[1]], 'r') as file:
@@ -408,7 +408,7 @@ def GetNum(FilePath):
     print(f"Got filepath: {FilePath}")
     filename = os.path.basename(FilePath)
     print(f"Got filename: {filename}")
-    num = int(filename[11:-5])
+    num = int(filename[len("MobileNet_layer"):-5])
     return num
 
 def save_dictionary_to_file(dictionary, filename):
@@ -492,15 +492,15 @@ st = time.time()
 layers = []
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< INPUTS SECTION STARTS HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-folder_path = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/VGG02'  # Folder containing all the layers
-BenchMrkrLog_folder = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/benchmarks'
+folder_path = '/workspace/DeepFrack/Journal/Results/mobnet-hbm/mobnet'  # Folder containing all the layers
+BenchMrkrLog_folder = '/workspace/DeepFrack/Journal/Results/mobnet-hbm/benchmarks'
 CheatSheet = '/workspace/DeepFrack/CheatSheet.json'
-OutputImgFile = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/comparison.jpg'
-LogFile = '/workspace/DeepFrack/Journal/Results/vgg02-hbm/deepfrack-stats-file.txt'
-WeightLevel_name = 'GlobalBuffer'
-WeightLevel_size = 16384*16
-InputLevel_name = 'GlobalBuffer'
-InputLevel_size = 16384*16
+OutputImgFile = '/workspace/DeepFrack/Journal/Results/mobnet-hbm/comparison.jpg'
+LogFile = '/workspace/DeepFrack/Journal/Results/mobnet-hbm/deepfrack-stats-file.txt'
+WeightLevel_name = 'PEWeightBuffer'
+WeightLevel_size = 1024*512
+InputLevel_name = 'PEInputBuffer'
+InputLevel_size = 1024*64
 OutputLevel_name = 'PEAccuBuffer'
 OutputLevel_size = 128*512
 
@@ -532,19 +532,19 @@ for file_name in os.listdir(BenchMrkrLog_folder):
     if file_name.endswith('.json'):
         name = file_name[:-5]
         path = os.path.join(BenchMrkrLog_folder, file_name)
-        if name == 'ELBLC_agg':
+        if name == 'ELBLC_agg' or name == 'ELBLC':
             EndFileLBLC = path
-        elif name == 'EWCC_agg':
+        elif name == 'EWCC_agg' or name == 'EWCC':
             EndFileWCC = path
-        elif name == 'LBLC_agg':
+        elif name == 'LBLC_agg' or name == 'LBLC':
             LBLCFile = path
-        elif name == 'OutWCC_agg':
+        elif name == 'OutWCC_agg' or name == 'OutWCC':
             OutWCCFile = path
-        elif name == 'SLC_agg':
+        elif name == 'SLC_agg' or name == 'SLC':
             SLCFile = path
-        elif name == 'Start_agg':
+        elif name == 'Start_agg' or name == 'Start':
             StartFile = path
-        elif name == 'WCC_agg':
+        elif name == 'WCC_agg' or name == 'WCC':
             FullyWCCFile = path
         else:
             print("Invalid name:", name)
